@@ -1,0 +1,43 @@
+| VIM | OSX Short cut  | Windows shortcut | action |
+| --- | -------------- | ---------------- | ------ |
+| gg | Command Up | Ctrl Home | move to top of document |
+| G | Command down | Ctrl end | move to bottom of document |
+| { | Option Up | Ctrl Up | move to start of paragraph |
+| } | Option Down | Ctrl Down | move to end of paragraph |
+| ) | ? | ? | Move forward one sentence |
+| ( | ? | ? | Move backward one sentence |
+| 0 | Command Left | Home | Start of line |
+| $ | Command Right | End | End of line |
+| w | Option right | Ctrl right | move word right |
+| b | Option Left | Ctrl Left | move word back |
+| x | Delete | Delete | delete charactrer to left |
+| PageUp (Ctrl B) | PageUp | PageUp | Move page up |
+| PageDown (Ctrl F) | PageDown | PageDown | Move page down |
+
+
+Key mapping to be used in the vim mapping scheme
+
+| Key | Purpose |
+| --- | ------- |
+| w   | word forward |
+| r   | redo         |
+| u   | undo         |
+| {   | start of paragraph |
+| }   | end of paragraph   |
+| g   | start of text ?    |
+| h   | left |
+| j   | down |
+| k   | up    |
+| l   | right |
+| x   | delete  |
+| b   | word back |
+| n   | home |
+| m   | page down |
+| ,   | page up |
+| .   | end |
+| y   | copy         |
+| p   | paste        |
+| e   | esc?         |
+
+
+
