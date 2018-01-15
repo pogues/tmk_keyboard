@@ -119,8 +119,8 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Layer 3: brackets activated by holding tab (so other layers are deactivated) */
     KEYMAP(TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,\
-           TRNS,   NO,   NO,   NO,   NO,   NO, FN21, FN14, FN15, FN18, FN19, TRNS, TRNS, TRNS,      \
-           TRNS,   NO,   NO,   NO,   NO,   NO, FN27, LBRC, RBRC, FN22, BSLS,  GRV, TRNS,            \
+           TRNS,   NO,   NO,   NO,   NO,   NO, FN21, FN14, FN15, FN22, BSLS, TRNS, TRNS, TRNS,      \
+           TRNS,   NO,   NO,   NO,   NO,   NO, FN27, LBRC, RBRC, FN18, FN19,  GRV, TRNS,            \
            TRNS,   NO,   NO,   NO,   NO,   NO, FN26, FN16, FN17, FN23, FN25, TRNS, TRNS,            \
                 TRNS,   NO,         FN20,                 NO, TRNS),
 };
