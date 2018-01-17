@@ -85,7 +85,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *       |Alt|FN0  |         SPC           |FN0  |Alt|
      *       `-------------------------------------------'
      */
-    KEYMAP( ESC,    1,    2,    3,    4,    5,    6,    7,    8,    9,    0, MINS,  EQL, BSLS,  GRV,\
+    KEYMAP(FN31,    1,    2,    3,    4,    5,    6,    7,    8,    9,    0, MINS,  EQL, BSLS,  GRV,\
            FN12,    Q,    W,    E,    R,    T,    Y,    U,    I,    O,    P, LBRC, RBRC, BSPC,      \
            FN28,    A,    S,    D,    F,    G,    H,    J,    K,    L, SCLN, QUOT,  FN1,            \
            LSFT,    Z,    X,    C,    V,    B,    N,    M, COMM,  DOT, SLSH, RSFT, LGUI,            \
@@ -123,6 +123,13 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            TRNS,   NO,   NO,   NO,   NO,   NO, FN27, LBRC, RBRC, FN18, FN19,  GRV, TRNS,            \
            TRNS,   NO,   NO,   NO,   NO,   NO, FN26, FN16, FN17, FN23, FN25, TRNS, TRNS,            \
                 TRNS,   NO,         FN20,                 NO, TRNS),
+
+    /* Layer 4: Ctrl-Alt layer */
+    KEYMAP(TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, FN29, TRNS, TRNS, TRNS, TRNS,\
+           TRNS, TRNS, TRNS, TRNS, TRNS, FN30, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,      \
+           TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,            \
+           TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,            \
+                TRNS,   NO,         TRNS,                 NO, TRNS),
 };
 
 
@@ -153,6 +160,8 @@ enum macro_id {
     HAT,
     AMPERSAND,
     HASH,
+    CTRL_ALT_F10,
+    CTRL_ALT_T,
 };
 
 /* id for user defined functions */
@@ -162,6 +171,7 @@ enum function_id {
 
 
 #define CTRL_MACRO(KEY) (record->event.pressed ? MACRO(D(LCTRL), T(KEY), U(LCTRL), END) : MACRO_NONE)
+#define CTRL_ALT_MACRO(KEY) (record->event.pressed ? MACRO(D(LCTRL), D(LALT), T(KEY), U(LALT), U(LCTRL), END) : MACRO_NONE)
 #define SHIFT_MACRO(KEY) (record->event.pressed ? MACRO(D(LSFT), T(KEY), U(LSFT), END) : MACRO_NONE)
 
 /*
@@ -217,6 +227,10 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case OPEN_PARENS:
             return SHIFT_MACRO(9);
         // 8 is omitted above as it can be got via the num pad asterisk PAST
+        case CTRL_ALT_F10:
+            return CTRL_ALT_MACRO(F10);
+        case CTRL_ALT_T:
+            return CTRL_ALT_MACRO(T);
     }
     return MACRO_NONE;
 }
@@ -304,4 +318,7 @@ const action_t PROGMEM fn_actions[] = {
     [26] = ACTION_MACRO(AMPERSAND),
     [27] = ACTION_MACRO(HASH),
     [28] = ACTION_MODS_TAP_KEY(MOD_LCTL, KC_ESC),    // LControl with tap ESC
+    [29] = ACTION_MACRO(CTRL_ALT_F10),
+    [30] = ACTION_MACRO(CTRL_ALT_T),
+    [31] = ACTION_LAYER_TAP_KEY(4, KC_ESC),         // enter layer 4 when esc held
 };
