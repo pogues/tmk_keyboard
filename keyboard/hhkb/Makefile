@@ -145,7 +145,7 @@ else
     ifeq (yes,$(strip $(HHKB_JP)))
         SRC := $(KEYMAP_FILE)_jp.c $(SRC)
     else 
-        SRC := $(KEYMAP_FILE)_hhkb.c $(SRC)
+        SRC := $(KEYMAP_FILE)_vim.c $(SRC)
     endif
 endif
 
