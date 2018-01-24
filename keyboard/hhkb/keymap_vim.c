@@ -174,7 +174,7 @@ enum function_id {
 
 
 #define CTRL_MACRO(KEY) (record->event.pressed ? MACRO(D(LCTRL), T(KEY), U(LCTRL), END) : MACRO_NONE)
-#define CTRL_ALT_MACRO(KEY) (record->event.pressed ? MACRO(D(LCTRL), D(LALT), T(KEY), U(LALT), U(LCTRL), END) : MACRO_NONE)
+// #define CTRL_ALT_MACRO(KEY) (record->event.pressed ? MACRO(D(LCTRL), D(LALT), T(KEY), U(LALT), U(LCTRL), END) : MACRO_NONE)
 #define SHIFT_MACRO(KEY) (record->event.pressed ? MACRO(D(LSFT), T(KEY), U(LSFT), END) : MACRO_NONE)
 
 /*
@@ -235,15 +235,19 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 }
 
 // Apply the given key with ctrl held down
-void action_with_ctrl(uint8_t key)
+void key_press_with_ctrl(uint8_t key)
 {
     add_weak_mods(MOD_BIT(KC_LCTRL));
+    add_key(key);
     send_keyboard_report();
-
-    register_code(key);
-    unregister_code(key);
-
     del_weak_mods(MOD_BIT(KC_LCTRL));
+    send_keyboard_report();
+}
+
+
+void key_release(uint8_t key)
+{
+    del_key(key);
     send_keyboard_report();
 }
 
@@ -277,16 +281,6 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
     static uint8_t shift_held;
 
-    if (record->event.pressed)
-        dprint("P");
-    else
-        dprint("R");
-
-    dprintf("%d", record->tap.count);
-    if (record->tap.interrupted)
-        dprint("i");
-    dprint("\n");
-
     switch (id) 
     {
         case VIM_G:
@@ -296,15 +290,16 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
                 if (shift_held) 
                 {
                     del_mods(shift_held);  // remove whichever shift it was
-
-                    action_with_ctrl(KC_END);
-
+                    key_press_with_ctrl(KC_END);
                     add_mods(shift_held);  // restore the shift
                 }
                 else 
                 {
-                    action_with_ctrl(KC_HOME);
+                    key_press_with_ctrl(KC_HOME);
                 }
+            }
+            else {
+                key_release(shift_held ? KC_END : KC_HOME);
             }
             break;
     }
