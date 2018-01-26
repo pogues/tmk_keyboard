@@ -40,9 +40,16 @@ enum macro_id {
     HAT,
     AMPERSAND,
     HASH,
+    CTRL_ALT_F9,
     CTRL_ALT_F10,
     CTRL_ALT_T,
+    CTRL_ALT_W,
     CTRL_ALT_DEL,
+    CTRL_SHIFT_D,
+    CTRL_SHIFT_E,
+    CTRL_SHIFT_G,
+    CTRL_SHIFT_P,
+    CTRL_SHIFT_V,
 };
 
 /* id for user defined functions */
@@ -91,9 +98,17 @@ enum function_id {
 #define AC__AMPD ACTION_MACRO(AMPERSAND)
 
 // ctrl alt actions
+#define AC_CAF9  ACTION_MACRO(CTRL_ALT_F9)
 #define AC_CAF10 ACTION_MACRO(CTRL_ALT_F10)
 #define AC_CADEL ACTION_MACRO(CTRL_ALT_DEL)
 #define AC_CA_T  ACTION_MACRO(CTRL_ALT_T)
+#define AC_CA_W  ACTION_MACRO(CTRL_ALT_W)
+// strl shift actions
+#define AC_CS_D  ACTION_MACRO(CTRL_SHIFT_D)
+#define AC_CS_E  ACTION_MACRO(CTRL_SHIFT_E)
+#define AC_CS_G  ACTION_MACRO(CTRL_SHIFT_G)
+#define AC_CS_P  ACTION_MACRO(CTRL_SHIFT_P)
+#define AC_CS_V  ACTION_MACRO(CTRL_SHIFT_V)
 
 // action modifiers (tap vs hold)
 #define AC__ENT_     ACTION_MODS_TAP_KEY(MOD_RCTL, KC_ENT)    // RControl with tap Enter
@@ -133,16 +148,17 @@ const action_t actionmaps[][UNIMAP_ROWS][UNIMAP_COLS] PROGMEM = {
          TRNS,   NO,   NO,   NO,   NO,   NO,  EQL,    1,    2,    3, TRNS, TRNS, TRNS,            \
                   NO,   NO,            0,                 NO, TRNS),
 
-    [4] = UNIMAP_HHKB( // "Ctrl-Alt" layer 
-         TRNS,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,CAF10,  F11,  F12,  INS,CADEL,\
-          TAB, TRNS, TRNS, TRNS, TRNS, CA_T, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,      \
-         LCTL, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,  ENT,            \
-         TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,            \
+    [4] = UNIMAP_HHKB( // "Ctrl-Alt" and "Ctrl-Shift" layer 
+         TRNS,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8, CAF9,CAF10,  F11,  F12,  INS,CADEL,\
+          TAB, TRNS, CA_W, CS_E, TRNS, CA_T, TRNS, TRNS, TRNS, TRNS, CS_P, TRNS, TRNS, TRNS,      \
+         LCTL, TRNS, TRNS, CS_D, TRNS, CS_G, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,  ENT,            \
+         TRNS, TRNS, TRNS, TRNS, CS_V, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,            \
                   NO,   NO,         TRNS,                 NO, TRNS),
 };
 
 #define CTRL_MACRO(KEY) (record->event.pressed ? MACRO(D(LCTRL), T(KEY), U(LCTRL), END) : MACRO_NONE)
 #define CTRL_ALT_MACRO(KEY) (record->event.pressed ? MACRO(D(LCTRL), D(LALT), T(KEY), U(LALT), U(LCTRL), END) : MACRO_NONE)
+#define CTRL_SHIFT_MACRO(KEY) (record->event.pressed ? MACRO(D(LCTRL), D(LSFT), T(KEY), U(LSFT), U(LCTRL), END) : MACRO_NONE)
 #define SHIFT_MACRO(KEY) (record->event.pressed ? MACRO(D(LSFT), T(KEY), U(LSFT), END) : MACRO_NONE)
 
 /*
@@ -198,12 +214,26 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         // 8 is omitted as it can be got via the num pad asterisk PAST
         case OPEN_PARENS:
             return SHIFT_MACRO(9);
+        case CTRL_ALT_F9:
+            return CTRL_ALT_MACRO(F9);
         case CTRL_ALT_F10:
             return CTRL_ALT_MACRO(F10);
         case CTRL_ALT_T:
             return CTRL_ALT_MACRO(T);
+        case CTRL_ALT_W:
+            return CTRL_ALT_MACRO(W);
         case CTRL_ALT_DEL:
             return CTRL_ALT_MACRO(DEL);
+        case CTRL_SHIFT_D:
+            return CTRL_SHIFT_MACRO(D);
+        case CTRL_SHIFT_E:
+            return CTRL_SHIFT_MACRO(E);
+        case CTRL_SHIFT_G:
+            return CTRL_SHIFT_MACRO(G);
+        case CTRL_SHIFT_P:
+            return CTRL_SHIFT_MACRO(P);
+        case CTRL_SHIFT_V:
+            return CTRL_SHIFT_MACRO(V);
     }
     return MACRO_NONE;
 }
