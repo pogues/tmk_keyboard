@@ -145,14 +145,14 @@ const action_t actionmaps[][UNIMAP_ROWS][UNIMAP_COLS] PROGMEM = {
         TAB3,    Q,    W,    E,    R,    T,    Y,    U,    I,    O,    P, LBRC, RBRC, BSPC,
        _LCT_,    A,    S,    D,    F,    G,    H,    J,    K,    L, SCLN, QUOT,      _ENT_,
         LSFT,  Z_3,    X,    C,    V,    B,    N,    M, COMM,  DOT, SLSH, RSFT, RGUI,
-               L2,  L1,               SPC,                     L1,  RALT),
+               L2,  L1,               SPC,                     L1,  LALT),
 
     [1] = UNIMAP_HHKB(  // "vim" layer
          ESC,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,  F10,  F11,  F12,  INS,  DEL,
         CAPS, PAUS,_FWDW,  ESC,_REDO,   NO,_YANK,_UNDO, PSCR, SLCK,_PSTE,_BAKP,_FWDP, TRNS,
         TRNS, VOLD, VOLU, MUTE, EJCT,_VIMG, LEFT, DOWN,   UP, RGHT,   NO,   NO,       TRNS,
         TRNS,   NO,  DEL, BTN1, BTN2,_BAKW, HOME, PGDN, PGUP,  END,_FIND, TRNS, TRNS,
-             TRNS,TRNS,               TRNS,                    TRNS,TRNS),
+             LALT,TRNS,               TRNS,                    TRNS,RALT),
 
     [2] = UNIMAP_HHKB( // "brackets" layer
           ESC, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,\
@@ -169,7 +169,7 @@ const action_t actionmaps[][UNIMAP_ROWS][UNIMAP_COLS] PROGMEM = {
                   NO,   NO,            0,                 NO, TRNS),
 
     [4] = UNIMAP_HHKB( // "Ctrl-Alt" and "Ctrl-Shift" layer 
-          ESC,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8, CAF9,CAF10,  F11,  F12,  INS,CADEL,\
+         ESC4,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8, CAF9,CAF10,  F11,  F12,  INS,CADEL,\
           TAB, TRNS, CA_W, CS_E, TRNS, CA_T, TRNS, TRNS, TRNS, TRNS, CS_P, TRNS, TRNS, TRNS,      \
          LCTL, TRNS, TRNS, CS_D, CA_F, CS_G, CA_H, CA_J, CA_K, CA_L,   NO, TRNS,  ENT,            \
          TRNS,    Z, TRNS, TRNS, CS_V, TRNS, TRNS, CA_M, TRNS, TRNS, TRNS, TRNS, TRNS,            \
