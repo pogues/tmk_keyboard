@@ -5,4 +5,4 @@ The png files are just the images exported from the above site.
 
 To generate the full_layout file execute the following command (from the imagemagick library)
 
-convert -append base_layer.png vim_layer.png bracket_layer.png numpad_layer.png full_layout.png
+convert -append base_layer.png vim_layer.png bracket_layer.png numpad_layer.png ctrl_layer.png full_layout.png

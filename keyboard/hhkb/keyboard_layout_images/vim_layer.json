@@ -59,13 +59,15 @@
   ],
   [
     {
+      "t": "#000000\n\n#ff0000",
       "a": 6,
       "f": 5,
       "w": 1.75
     },
-    "Control",
+    "Esc\n\nCtrl",
     {
       "c": "#cccccc",
+      "t": "#000000",
       "a": 7
     },
     "<i class='kb kb-Multimedia-Volume-Down-1'></i>",
@@ -80,17 +82,18 @@
     {
       "n": true
     },
-    "<i class='kb kb-Arrows-Up'></i>",
     "<i class='kb kb-Arrows-Down'></i>",
+    "<i class='kb kb-Arrows-Up'></i>",
     "<i class='kb kb-Arrows-Right'></i>",
     "",
     "",
     {
       "c": "#a2a8b8",
+      "t": "#000000\n\n#ff0000",
       "a": 6,
       "w": 2.25
     },
-    "Return"
+    "Return\n\nCtrl"
   ],
   [
     {
@@ -177,6 +180,6 @@
       "w": 2.25,
       "d": true
     },
-    "<b>VIM</b>\n<b>Layer 1</b>"
+    "<b>VIM</b>\n<b>(Layer 1)</b>"
   ]
 ]
