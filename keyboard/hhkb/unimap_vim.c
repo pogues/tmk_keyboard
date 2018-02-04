@@ -177,10 +177,10 @@ const action_t actionmaps[][UNIMAP_ROWS][UNIMAP_COLS] PROGMEM = {
 };
 
 
-#define CTRL_MACRO(KEY) (record->event.pressed ? MACRO(D(LCTRL), T(KEY), U(LCTRL), END) : MACRO_NONE)
-#define CTRL_ALT_MACRO(KEY) (record->event.pressed ? MACRO(D(LCTRL), D(LALT), T(KEY), U(LALT), U(LCTRL), END) : MACRO_NONE)
-#define CTRL_SHIFT_MACRO(KEY) (record->event.pressed ? MACRO(D(LCTRL), D(LSFT), T(KEY), U(LSFT), U(LCTRL), END) : MACRO_NONE)
-#define SHIFT_MACRO(KEY) (record->event.pressed ? MACRO(D(LSFT), T(KEY), U(LSFT), END) : MACRO_NONE)
+#define CTRL_MACRO(KEY) (record->event.pressed ? MACRO(CTL_(T(KEY)), END) : MACRO_NONE)
+#define CTRL_ALT_MACRO(KEY) (record->event.pressed ? MACRO(CTL_(ALT_(T(KEY))), END) : MACRO_NONE)
+#define CTRL_SHIFT_MACRO(KEY) (record->event.pressed ? MACRO(CTL_(ST(KEY)), END) : MACRO_NONE)
+#define SHIFT_MACRO(KEY) (record->event.pressed ? MACRO(ST(KEY), END) : MACRO_NONE)
 
 
 /*
