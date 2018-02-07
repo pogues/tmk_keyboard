@@ -6,7 +6,6 @@
  *  Delete is backspace (i.e. like dip switch 3 is on)
  *  Holding Enter acts as right control (tap for enter)
  *  Holding left control is control but tap for escape
- *  shift with escape is ~
  *  The Fn key is LGui (windows/command)
  *  The LGui/RGui keys are used to enter the VIM layer when held
  *  The tab key when held enters the numpad layer, tap for tab
@@ -87,14 +86,14 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-----------------------------------------------------------|
      * |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /|Shift |GUI|
      * `-----------------------------------------------------------'
-     *       |Alt|FN0  |         SPC           |FN0  |Alt|
+     *       |FN2|FN1  |         SPC           |FN1  |Alt|
      *       `-------------------------------------------'
      */
     KEYMAP(FN29,    1,    2,    3,    4,    5,    6,    7,    8,    9,    0, MINS,  EQL, BSLS,  GRV,\
            FN12,    Q,    W,    E,    R,    T,    Y,    U,    I,    O,    P, LBRC, RBRC, BSPC,      \
            FN28,    A,    S,    D,    F,    G,    H,    J,    K,    L, SCLN, QUOT,  FN1,            \
-           LSFT,    Z,    X,    C,    V,    B,    N,    M, COMM,  DOT, SLSH, RSFT, LGUI,            \
-                FN13,  FN0,          SPC,                FN0, RALT),
+           LSFT, FN30,    X,    C,    V,    B,    N,    M, COMM,  DOT, SLSH, RSFT, LGUI,            \
+                FN13,  FN0,          SPC,                FN0, LALT),
 
     /* Layer 1: vi
      * ,-----------------------------------------------------------.
@@ -111,29 +110,29 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     KEYMAP( ESC,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,  F10,  F11,  F12,  INS,  DEL,\
            CAPS, PAUS,  FN2,  ESC,  FN5,   NO,  FN6,  FN4, PSCR, SLCK,  FN7,  FN9,  FN8, TRNS,      \
-           LCTL, VOLD, VOLU, MUTE, EJCT, FN11, LEFT, DOWN,   UP, RGHT,   NO,   NO,  ENT,            \
+           TRNS, VOLD, VOLU, MUTE, EJCT, FN11, LEFT, DOWN,   UP, RGHT,   NO,   NO, TRNS,            \
            TRNS,   NO,  DEL, BTN1, BTN2,  FN3, HOME, PGDN, PGUP,  END, FN10, TRNS, TRNS,            \
-                  NO, TRNS,         TRNS,               TRNS, TRNS),
+                LALT, TRNS,         TRNS,               TRNS, RALT),
 
-    /* Layer 2: numpad  */
-    KEYMAP( PWR, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,\
-            TAB,   NO,   NO,   NO,   NO,   NO, PPLS,    7,    8,    9, FN24,   NO,   NO, TRNS,      \
-           LCTL,   NO,   NO,   NO,   NO,   NO, PMNS,    4,    5,    6, PAST,   NO,  ENT,            \
-           TRNS,   NO,   NO,   NO,   NO,   NO,  EQL,    1,    2,    3, TRNS, TRNS, TRNS,            \
-                  NO,   NO,            0,                 NO, TRNS),
-
-    /* Layer 3: brackets  */
+    /* Layer 2: brackets  */
     KEYMAP( ESC, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,\
             TAB,   NO,   NO,   NO,   NO,   NO, FN21, FN14, FN15, FN22, BSLS, TRNS, TRNS, TRNS,      \
-           LCTL,   NO,   NO,   NO,   NO,   NO, FN27, LBRC, RBRC, FN18, FN19,  GRV,  ENT,            \
+           TRNS,   NO,   NO,   NO,   NO,   NO, FN27, LBRC, RBRC, FN18, FN19,  GRV, TRNS,            \
            TRNS,   NO,   NO,   NO,   NO,   NO, FN26, FN16, FN17, FN23, FN25, TRNS, TRNS,            \
-                TRNS,   NO,         FN20,                 NO, TRNS),
+                TRNS,   NO,         FN20,                 NO, RALT),
 
-    /* Layer 4: Ctrl-Alt layer */
+    /* Layer 3: numpad  */
+    KEYMAP( PWR, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,\
+            TAB,   NO,   NO,   NO,   NO,   NO, PPLS,    7,    8,    9, FN24,   NO,   NO, TRNS,      \
+           LCTL,   NO,   NO,   NO,   NO,   NO, PMNS,    4,    5,    6, PAST,   NO, TRNS,            \
+           TRNS, TRNS,   NO,   NO,   NO,   NO,  EQL,    1,    2,    3, TRNS, TRNS, TRNS,            \
+                  NO,   NO,            0,                 NO, RALT),
+
+    /* Layer 4: Alt layer */
     KEYMAP(TRNS,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,  F10,  F11,  F12,  INS,  DEL,\
             TAB, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,      \
-           LCTL, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,  ENT,            \
            TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,            \
+           TRNS,    Z, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,            \
                   NO,   NO,         TRNS,                 NO, TRNS),
 };
 
@@ -252,31 +251,6 @@ void key_release(uint8_t key)
 }
 
 
-/* Initial helper function to remove a shift key.  Being used to set the bracket layer as a shift
- * layer then the couple of keys that are not shifted (namely []\`) can be set to use an action
- * but the rest 0-7,9,() do not need an action map that frees up some of the 32 allowed
-// Apply the given key with any shift removed
-void action_no_shift(uint8_t key)
-{
-    static uint8_t shift_held;
-    shift_held = SHIFT_HELD;
-
-    if (shift_held)
-    {
-        del_mods(shift_held);  // remove whichever shift it was
-    }
-
-    register_code(key);
-    unregister_code(key);
-
-    if (shift_held)
-    {
-        add_mods(shift_held);  // restore the shift
-    }
-}
-*/
-
-
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
     static uint8_t shift_held;
@@ -322,8 +296,8 @@ const action_t PROGMEM fn_actions[] = {
     [9] = ACTION_MACRO(BACKWARD_PARAGRAPH),         // (vi)[ ==> ctrl+up (officially vim is {)
     [10] = ACTION_MACRO(FIND),                      // (vi)/ ==> ctrl+f  (find)
     [11] = ACTION_FUNCTION(VIM_G),                  // (vi)g ==> ctrl+home, (vi)G ==> ctrl+end
-    [12] = ACTION_LAYER_TAP_KEY(2, KC_TAB),         // numpad with held tab
-    [13] = ACTION_LAYER_MOMENTARY(3),               // brackets layer
+    [12] = ACTION_LAYER_TAP_KEY(3, KC_TAB),         // numpad with held tab
+    [13] = ACTION_LAYER_MOMENTARY(2),               // brackets layer
     [14] = ACTION_MACRO(OPEN_PARENS),               // (brackets)u => (
     [15] = ACTION_MACRO(CLOSE_PARENS),              // (brackets)i => )
     [16] = ACTION_MACRO(OPEN_BRACE),                // (brackets)m => {
@@ -339,5 +313,6 @@ const action_t PROGMEM fn_actions[] = {
     [26] = ACTION_MACRO(AMPERSAND),
     [27] = ACTION_MACRO(HASH),
     [28] = ACTION_MODS_TAP_KEY(MOD_LCTL, KC_ESC),    // LControl with tap ESC
-    [29] = ACTION_LAYER_MODS(4, MOD_LCTL | MOD_LALT),   // enter layer 4 on holding esc, with ctrl-alt held
+    [29] = ACTION_LAYER_MODS(4, MOD_LALT),   // enter layer 4 on holding esc, with ctrl held
+    [30] = ACTION_LAYER_TAP_KEY(3, KC_Z),
 };
