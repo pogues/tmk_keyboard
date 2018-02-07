@@ -129,7 +129,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                   NO,   NO,            0,                 NO, RALT),
 
     /* Layer 4: Alt layer */
-    KEYMAP(TRNS,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,  F10,  F11,  F12,  INS,  DEL,\
+    KEYMAP(TRNS,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,  F10,  F11,  F12,  INS, FN31,\
             TAB, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,      \
            TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,            \
            TRNS,    Z, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,            \
@@ -164,6 +164,7 @@ enum macro_id {
     HAT,
     AMPERSAND,
     HASH,
+    CTRL_DEL,
 };
 
 /* id for user defined functions */
@@ -173,7 +174,6 @@ enum function_id {
 
 
 #define CTRL_MACRO(KEY) (record->event.pressed ? MACRO(D(LCTRL), T(KEY), U(LCTRL), END) : MACRO_NONE)
-// #define CTRL_ALT_MACRO(KEY) (record->event.pressed ? MACRO(D(LCTRL), D(LALT), T(KEY), U(LALT), U(LCTRL), END) : MACRO_NONE)
 #define SHIFT_MACRO(KEY) (record->event.pressed ? MACRO(D(LSFT), T(KEY), U(LSFT), END) : MACRO_NONE)
 
 /*
@@ -229,6 +229,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         // 8 is omitted as it can be got via the num pad asterisk PAST
         case OPEN_PARENS:
             return SHIFT_MACRO(9);
+        case CTRL_DEL:
+            return CTRL_MACRO(DEL);
     }
     return MACRO_NONE;
 }
@@ -315,4 +317,5 @@ const action_t PROGMEM fn_actions[] = {
     [28] = ACTION_MODS_TAP_KEY(MOD_LCTL, KC_ESC),    // LControl with tap ESC
     [29] = ACTION_LAYER_MODS(4, MOD_LALT),   // enter layer 4 on holding esc, with ctrl held
     [30] = ACTION_LAYER_TAP_KEY(3, KC_Z),
+    [31] = ACTION_MACRO(CTRL_DEL),
 };
