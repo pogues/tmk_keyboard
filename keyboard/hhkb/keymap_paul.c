@@ -57,7 +57,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            CAPS, PAUS,  FN2,   UP,  FN5,   NO,  FN6,  FN4, PSCR, SLCK,  FN7,  FN9,  FN8, TRNS,      \
            TRNS,   NO, LEFT, DOWN, RGHT, FN11, LEFT, DOWN,   UP, RGHT,   NO,   NO, TRNS,            \
            TRNS, PGDN, PGUP, HOME,  END,  FN3, HOME, PGDN, PGUP,  END, FN10, TRNS, TRNS,            \
-                LALT, TRNS,          SPC,               TRNS, RALT),
+                LALT,   NO,          SPC,               TRNS, RALT),
 
     /* Layer 2: brackets/symbols  */
     KEYMAP( ESC,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,  F10,  F11,  F12,  INS,  DEL,\
