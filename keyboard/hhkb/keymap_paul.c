@@ -4,7 +4,7 @@
  * Set a "num pad" layer on the left meta key
  * Set a "symbols" layer on the left alt key
  * Set a "general" layer on the right meta key
- * 
+ *
  *  Numpad layer
  *  y u i o p      + 7 8 9 %
  *  h j k l ;  ==  - 4 5 6 *
@@ -71,7 +71,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             TAB,   NO,   NO,   NO,   NO,   NO, PPLS,    7,    8,    9, FN24,   NO,   NO, TRNS,      \
            LCTL,   NO,   NO,   NO,   NO,   NO, PMNS,    4,    5,    6, PAST,   NO, TRNS,            \
            TRNS, TRNS,   NO,   NO,   NO,   NO,  EQL,    1,    2,    3, TRNS, TRNS, TRNS,            \
-                  NO,   NO,            0,                 NO, RALT),
+                  NO, TRNS,            0,                SPC, RALT),
 
     /* Layer 4: Alt layer */
     KEYMAP(TRNS,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,  F10,  F11,  F12,  INS, FN30,\
@@ -202,19 +202,19 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
     static uint8_t shift_held;
 
-    switch (id) 
+    switch (id)
     {
         case VIM_G:
             shift_held = SHIFT_HELD;
             if (record->event.pressed)
             {
-                if (shift_held) 
+                if (shift_held)
                 {
                     del_mods(shift_held);  // remove whichever shift it was
                     key_press_with_ctrl(KC_END);
                     add_mods(shift_held);  // restore the shift
                 }
-                else 
+                else
                 {
                     key_press_with_ctrl(KC_HOME);
                 }
