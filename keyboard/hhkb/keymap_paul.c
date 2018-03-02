@@ -70,7 +70,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KEYMAP( PWR,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,  F10,  F11,  F12,  INS,  DEL,\
             TAB,   NO,   NO,   NO,   NO,   NO, PPLS,    7,    8,    9, FN24,   NO,   NO, TRNS,      \
            LCTL,   NO,   NO,   NO,   NO,   NO, PMNS,    4,    5,    6, PAST,   NO, TRNS,            \
-           TRNS, TRNS,   NO,   NO,   NO,   NO,  EQL,    1,    2,    3, SLSH,  SPC, TRNS,            \
+            SPC, TRNS,   NO,   NO,   NO,   NO,  EQL,    1,    2,    3, SLSH,  SPC, TRNS,            \
                   NO, TRNS,            0,               COMM,  DOT),
 
     /* Layer 4: Alt layer */
