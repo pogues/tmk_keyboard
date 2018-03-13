@@ -50,7 +50,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *       |FN1|FN2  |         SPC           |FN0  |Alt|
      *       `-------------------------------------------'
      */
-    KEYMAP( FN3,    1, FN24,    3,    4,    5,    6,    7,    8,    9,    0, MINS,  EQL, NUHS,  GRV,\
+    KEYMAP( FN3,    1, FN24,    3,    4,    5,    6,    7,    8,    9,    0, MINS,  EQL, NUHS, NUBS,\
             TAB,    Q,    W,    E,    R,    T,    Y,    U,    I,    O,    P, LBRC, RBRC, BSPC,      \
             FN4,    A,    S,    D,    F,    G,    H,    J,    K,    L, SCLN, FN25,  FN5,            \
            LSFT,    Z,    X,    C,    V,    B,    N,    M, COMM,  DOT, SLSH, RSFT, LGUI,            \
@@ -65,8 +65,8 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Layer 2: brackets/symbols */
     KEYMAP( ESC,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,  F10,  F11,  F12,  INS,  DEL,\
-            TAB,   NO,   NO,   NO,   NO,   NO, FN18, FN11, FN12, FN19,  GRV, TRNS, TRNS, TRNS,      \
-           TRNS,   NO,   NO,   NO,   NO,   NO, NUHS, LBRC, RBRC, FN16, FN15, NUBS, TRNS,            \
+            TAB,   NO,   NO,   NO,   NO,   NO, FN18, FN11, FN12, FN19, NUBS, TRNS, TRNS, TRNS,      \
+           TRNS,   NO,   NO,   NO,   NO,   NO, NUHS, LBRC, RBRC, FN16, FN15,  GRV, TRNS,            \
            TRNS,   NO,   NO,   NO,   NO,   NO, FN23, FN13, FN14, FN20, FN22, TRNS, TRNS,            \
                 TRNS,   NO,         FN17,                 NO, RALT),
 
@@ -98,8 +98,8 @@ enum macro_id {
     CLOSE_PARENS,
     OPEN_BRACE,
     CLOSE_BRACE,
-    PIPE,
     TILDE,
+    PIPE,
     UNDERSCORE,
     EXLCLAIM,
     AT_SIGN,
@@ -140,10 +140,10 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             return SHIFT_MACRO(LBRC);
         case CLOSE_BRACE:
             return SHIFT_MACRO(RBRC);
-        case PIPE:
-            return SHIFT_MACRO(BSLS);
         case TILDE:
-            return SHIFT_MACRO(GRV);
+            return SHIFT_MACRO(NUHS);
+        case PIPE:
+            return SHIFT_MACRO(NUBS);
         case UNDERSCORE:
             return SHIFT_MACRO(MINS);
         case CLOSE_PARENS:
@@ -321,8 +321,8 @@ const action_t PROGMEM fn_actions[] = {
     [12] = ACTION_MACRO(CLOSE_PARENS),              // (brackets)i => )
     [13] = ACTION_MACRO(OPEN_BRACE),                // (brackets)m => {
     [14] = ACTION_MACRO(CLOSE_BRACE),               // (brackets), => }
-    [15] = ACTION_MACRO(PIPE),
-    [16] = ACTION_MACRO(TILDE),
+    [15] = ACTION_MACRO(TILDE),
+    [16] = ACTION_MACRO(PIPE),
     [17] = ACTION_MACRO(UNDERSCORE),
     [18] = ACTION_MACRO(EXLCLAIM),
     [19] = ACTION_MACRO(AT_SIGN),
