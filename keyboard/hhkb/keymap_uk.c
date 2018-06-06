@@ -53,29 +53,29 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KEYMAP( FN3,    1, FN24,    3,    4,    5,    6,    7,    8,    9,    0, MINS,  EQL, NUHS, NUBS,\
             TAB,    Q,    W,    E,    R,    T,    Y,    U,    I,    O,    P, LBRC, RBRC, BSPC,      \
             FN4,    A,    S,    D,    F,    G,    H,    J,    K,    L, SCLN, FN25,  FN5,            \
-           LSFT,    Z,    X,    C,    V,    B,    N,    M, COMM,  DOT, SLSH, RSFT, LGUI,            \
+           FN27,    Z,    X,    C,    V,    B,    N,    M, COMM,  DOT, SLSH, FN28, LGUI,            \
                  FN1,  FN2,          SPC,                FN0, LALT),
 
-    /* Layer 1: movement */
-    KEYMAP( ESC,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,  F10,  F11,  F12,  INS,  DEL,\
-           CAPS,   NO,  FN6,   UP,   NO,   NO,   NO,   NO, PSCR, SLCK, PAUS, FN10,  FN9, TRNS,      \
-           TRNS,   NO, LEFT, DOWN, RGHT,  FN8,   NO,   NO,   NO,   NO,   NO,   NO, TRNS,            \
-           TRNS, PGDN, PGUP, HOME,  END,  FN7,   NO,   NO, VOLD, VOLU, MUTE, TRNS, TRNS,            \
-                LALT,   NO,          SPC,               TRNS, RALT),
-
-    /* Layer 2: brackets/symbols */
+    /* Layer 1: brackets/symbols */
     KEYMAP( ESC,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,  F10,  F11,  F12,  INS,  DEL,\
             TAB,   NO,   NO,   NO,   NO,   NO, FN18, FN11, FN12, FN19, NUBS, TRNS, TRNS, TRNS,      \
            TRNS,   NO,   NO,   NO,   NO,   NO, NUHS, LBRC, RBRC, FN16, FN15,  GRV, TRNS,            \
            TRNS,   NO,   NO,   NO,   NO,   NO, FN23, FN13, FN14, FN20, FN22, TRNS, TRNS,            \
-                TRNS,   NO,         FN17,                 NO, RALT),
+                TRNS,  FN0,         FN17,                 NO, RALT),
 
-    /* Layer 3: numpad */
+    /* Layer 2: numpad */
     KEYMAP( PWR,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,  F10,  F11,  F12,  INS,  DEL,\
             TAB,   NO,   NO,   NO,   NO,   NO, PPLS,    7,    8,    9, FN21,   NO,   NO, TRNS,      \
            LCTL,   NO,   NO,   NO,   NO,   NO, PMNS,    4,    5,    6, PAST,   NO, TRNS,            \
             SPC, TRNS,   NO,   NO,   NO,   NO,  EQL,    1,    2,    3, SLSH,  SPC, TRNS,            \
-                  NO, TRNS,            0,               COMM,  DOT),
+                 FN0, TRNS,            0,               COMM,  DOT),
+
+    /* Layer 3: movement */
+    KEYMAP( ESC,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9, MUTE, VOLD, VOLU,  INS,  DEL,\
+           CAPS,   NO,  FN6,   UP,   NO,   NO,   NO,   NO, PSCR, SLCK, PAUS, FN10,  FN9, TRNS,      \
+           TRNS,   NO, LEFT, DOWN, RGHT,  FN8, LEFT, DOWN,   UP, RGHT,   NO,   NO, TRNS,            \
+           TRNS, HOME, PGDN, PGUP,  END,  FN7, HOME, PGDN, PGUP,  END, MUTE, TRNS, TRNS,            \
+                LALT,   NO,          SPC,               TRNS, RALT),
 
     /* Layer 4: Alt layer */
     KEYMAP(TRNS,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,  F10,  F11,  F12,  INS, FN26,\
@@ -114,6 +114,8 @@ enum macro_id {
 enum function_id {
     VIM_G,
     LAYER_ESC,
+    BRACKETS_LAYER,
+    NUMPAD_LAYER,
     ANSI_2,
     ANSI_SINGLE_DOUBLE_QUOTE,
 };
@@ -169,6 +171,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 }
 
 
+/** press the specified key */
 void key_press(uint8_t key)
 {
     add_key(key);
@@ -186,6 +189,7 @@ void key_press_with_ctrl(uint8_t key)
 }
 
 
+/** release the specified key */
 void key_release(uint8_t key)
 {
     del_key(key);
@@ -246,11 +250,11 @@ void action_function_mods_layer_tap(keyrecord_t *record, uint8_t mods, uint8_t l
     {
         if (record->event.pressed) 
         {
-            key_press(KC_ESC);
+            key_press(key);
         }
         else
         {
-            key_release(KC_ESC);
+            key_release(key);
         }
     }
 }
@@ -275,6 +279,39 @@ void action_function_alternate_shift(keyrecord_t *record, uint8_t base_key, uint
 }
 
 
+/**
+ * enter a layer and record that we have.  when exiting the recorded layer is exited.
+ * we use this to have a pair of keys, (lalt and lmeta) where:
+ *      in the base layer lalt enters layer 1 and lmeta enters layer 2
+ *      both these keys are TRNS in the respective layers, but the other enters layer 3
+ *      in this case if we press A then B then release B then A all is OK.
+ *      the code below handles the case where we press A then B then release A then B
+ *      exiting the correct layer underneath.
+ */
+void action_function_multi_layer(keyrecord_t *record, uint8_t layer)
+{
+    static uint8_t entered_layer = 0;
+
+    if (record->event.pressed)
+    {
+        entered_layer = layer;
+        layer_on(layer);
+        dprintf("Enter Layer %d", layer);
+    }
+    else 
+    {
+        // exit the entered layer
+        layer_off(entered_layer);
+        // always setting back to 0 as that is the default, though should not get used
+        entered_layer = 0;
+        dprintf("Exit Layer %d (from %d)", entered_layer, layer);
+    }
+}
+
+
+/**
+ * main tmk action function called via the ACTION_FUNCTION in fn_actions
+ */
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
     switch (id)
@@ -291,6 +328,12 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
         case LAYER_ESC:
             action_function_mods_layer_tap(record, MOD_BIT(KC_LALT), 4, KC_ESC);
             break;
+        case BRACKETS_LAYER:
+            action_function_multi_layer(record, 1);
+            break;
+        case NUMPAD_LAYER:
+            action_function_multi_layer(record, 2);
+            break;
     }
 }
 
@@ -300,9 +343,11 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
  */
 const action_t PROGMEM fn_actions[] = {
     // Layers
-    [0] = ACTION_LAYER_MOMENTARY(1),                // motion mode
-    [1] = ACTION_LAYER_MOMENTARY(2),                // brackets mode
-    [2] = ACTION_LAYER_MOMENTARY(3),                // numpad mode
+    [0] = ACTION_LAYER_MOMENTARY(3),                // motion mode
+    //[1] = ACTION_LAYER_MOMENTARY(1),                // brackets mode
+    //[2] = ACTION_LAYER_MOMENTARY(2),                // numpad mode
+    [1] = ACTION_FUNCTION(BRACKETS_LAYER),          // enter the brackets layer
+    [2] = ACTION_FUNCTION(NUMPAD_LAYER),            // numpad layer
     [3] = ACTION_LAYER_MODS(4, MOD_LALT),           // enter layer 4 on holding esc, with alt held
 
     // control keys on the ends of the home row
@@ -337,6 +382,10 @@ const action_t PROGMEM fn_actions[] = {
 
     // control and delete used in the alt layer...
     [26] = ACTION_MACRO(CTRL_DEL),
+
+    // oneshot shift keys
+    [27] = ACTION_MODS_ONESHOT(MOD_LSFT),
+    [28] = ACTION_MODS_ONESHOT(MOD_RSFT),
 };
 
 /******************************************************************************
