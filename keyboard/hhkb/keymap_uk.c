@@ -53,7 +53,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KEYMAP( FN3,    1, FN24,    3,    4,    5,    6,    7,    8,    9,    0, MINS,  EQL, NUHS, NUBS,\
             TAB,    Q,    W,    E,    R,    T,    Y,    U,    I,    O,    P, LBRC, RBRC, BSPC,      \
             FN4,    A,    S,    D,    F,    G,    H,    J,    K,    L, SCLN, FN25,  FN5,            \
-           FN27,    Z,    X,    C,    V,    B,    N,    M, COMM,  DOT, SLSH, FN28, LGUI,            \
+           LSFT,    Z,    X,    C,    V,    B,    N,    M, COMM,  DOT, SLSH, RSFT, LGUI,            \
                  FN1,  FN2,          SPC,                FN0, LALT),
 
     /* Layer 1: brackets/symbols */
@@ -382,10 +382,6 @@ const action_t PROGMEM fn_actions[] = {
 
     // control and delete used in the alt layer...
     [26] = ACTION_MACRO(CTRL_DEL),
-
-    // oneshot shift keys
-    [27] = ACTION_MODS_ONESHOT(MOD_LSFT),
-    [28] = ACTION_MODS_ONESHOT(MOD_RSFT),
 };
 
 /******************************************************************************
@@ -422,4 +418,12 @@ const action_t PROGMEM fn_actions[] = {
  *         return action;
  *     }
  *     
+ *****************************************************************************/
+
+/******************************************************************************
+ * to use oneshot modifiers the functions need to be changed...
+ * expose get_oneshot_modifier in tmk_core/action_util.[c|h]
+ * then in the functions check if this is set and act shifted if so
+ * would also need to call clear_oneshot_mods once done
+ * plus check if this needs to honour the oneshot timeout specifically
  *****************************************************************************/
