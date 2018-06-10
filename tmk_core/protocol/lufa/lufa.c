@@ -140,10 +140,6 @@ static void Console_Task(void)
 
     Endpoint_SelectEndpoint(ep);
 }
-#else
-static void Console_Task(void)
-{
-}
 #endif
 
 
