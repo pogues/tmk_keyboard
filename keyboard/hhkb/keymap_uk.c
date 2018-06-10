@@ -261,23 +261,41 @@ void action_function_mods_layer_tap(keyrecord_t *record, uint8_t mods, uint8_t l
 
 
 /**
- * function that handles the base unshifted case in a different way to the shifted case.
- * this can be used to get the US style 2/@ on the two key under the UK layout for example
- * (which would use 2/" by default)
+ * function that emits ' in unshifted but " in shifted.  records the staus
+ * of the shift on press to ensure the correct key is released.
  */
-void action_function_alternate_shift(keyrecord_t *record, uint8_t base_key, uint8_t shifted_key)
+void action_function_alternate_shift_two(keyrecord_t *record)
 {
-    uint8_t shift_held = SHIFT_HELD;
+    static uint8_t shifted = false;
     if (record->event.pressed)
     {
-        key_press(shift_held ? shifted_key : base_key);
+        shifted = SHIFT_HELD;
+        key_press(shifted ? KC_QUOTE : KC_2);
     }
     else
     {
-        key_release(shift_held ? shifted_key : base_key);
+        key_release(shifted ? KC_QUOTE : KC_2);
     }
 }
 
+
+/**
+ * function that emits 2 unshifted and @ shifted.  records the staus
+ * of the shift on press to ensure the correct key is released.
+ */
+void action_function_alternate_shift_quote(keyrecord_t *record)
+{
+    static uint8_t shifted = false;
+    if (record->event.pressed)
+    {
+        shifted = SHIFT_HELD;
+        key_press(shifted ? KC_2 : KC_QUOTE);
+    }
+    else
+    {
+        key_release(shifted ? KC_2 : KC_QUOTE);
+    }
+}
 
 /**
  * enter a layer and record that we have.  when exiting the recorded layer is exited.
@@ -320,10 +338,10 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
             action_funtion_vim_g(record);
             break;
         case ANSI_2:
-            action_function_alternate_shift(record, KC_2, KC_QUOTE);   // 2 @  under the UK layout
+            action_function_alternate_shift_two(record);   // 2 @  under the UK layout
             break;
         case ANSI_SINGLE_DOUBLE_QUOTE:
-            action_function_alternate_shift(record, KC_QUOTE, KC_2);   // ' "  under the UK layout
+            action_function_alternate_shift_quote(record);   // ' "  under the UK layout
             break;
         case LAYER_ESC:
             action_function_mods_layer_tap(record, MOD_BIT(KC_LALT), 4, KC_ESC);
