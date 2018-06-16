@@ -134,6 +134,19 @@ void clear_oneshot_mods(void)
     oneshot_time = 0;
 #endif
 }
+
+uint8_t get_and_clear_oneshot_mods(void)
+{
+    uint8_t the_mods = oneshot_mods;
+#if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
+    if (TIMER_DIFF_16(timer_read(), oneshot_time) >= ONESHOT_TIMEOUT) {
+        dprintf("Oneshot: timed out.\n");
+        the_mods = 0;
+    }
+#endif
+    clear_oneshot_mods();
+    return the_mods;
+}
 #endif
 
 

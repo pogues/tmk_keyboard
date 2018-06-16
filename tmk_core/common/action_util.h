@@ -54,6 +54,14 @@ void oneshot_toggle(void);
 void oneshot_enable(void);
 void oneshot_disable(void);
 
+/**
+ * gets the oneshot modifier state and returns it.  this will also clear the state
+ * as it is assumed you are in a method processing a key press.
+ * finally it honours the oneshot timeout - so if the timeout is passed the modifier will not
+ * be set
+ */
+uint8_t get_and_clear_oneshot_mods(void);
+
 /* inspect */
 uint8_t has_anykey(void);
 uint8_t has_anymod(void);
