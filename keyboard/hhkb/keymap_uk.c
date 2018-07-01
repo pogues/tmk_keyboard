@@ -57,7 +57,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  FN1,  FN2,          SPC,                FN0, LALT),
 
     /* Layer 1: brackets/symbols */
-    KEYMAP( ESC,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,  F10,  F11,  F12,  INS,  DEL,\
+    KEYMAP( ESC,   NO,   NO,   NO,   NO,   NO,   NO, FN27, FN28,   NO,   NO,   NO,   NO,  INS,  DEL,\
             TAB,   NO,   NO,   NO,   NO,   NO, FN18, FN11, FN12, FN19, NUBS, TRNS, TRNS, TRNS,      \
            TRNS,   NO,   NO,   NO,   NO,   NO, NUHS, LBRC, RBRC, FN16, FN15,  GRV, TRNS,            \
            TRNS,   NO,   NO,   NO,   NO,   NO, FN23, FN13, FN14, FN20, FN22, TRNS, TRNS,            \
@@ -108,6 +108,8 @@ enum macro_id {
     HAT,
     AMPERSAND,
     CTRL_DEL,
+    LESS_THAN,
+    GREATER_THAN,
 };
 
 /* id for user defined functions */
@@ -166,6 +168,10 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             return SHIFT_MACRO(9);
         case CTRL_DEL:
             return CTRL_MACRO(DEL);
+        case LESS_THAN:
+            return SHIFT_MACRO(COMM);
+        case GREATER_THAN:
+            return SHIFT_MACRO(DOT);
     }
     return MACRO_NONE;
 }
@@ -400,6 +406,10 @@ const action_t PROGMEM fn_actions[] = {
 
     // control and delete used in the alt layer...
     [26] = ACTION_MACRO(CTRL_DEL),
+
+    // the < and > for the numpad layer
+    [27] = ACTION_MACRO(LESS_THAN),
+    [28] = ACTION_MACRO(GREATER_THAN),
 };
 
 /******************************************************************************
