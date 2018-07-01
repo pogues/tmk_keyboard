@@ -21,9 +21,9 @@
     "F7",
     "F8",
     "F9",
-    "F10",
-    "F11",
-    "F12",
+    "<i class='kb kb-Multimedia-Mute-1'></i>",
+    "<i class='kb kb-Multimedia-Volume-Down-1'></i>",
+    "<i class='kb kb-Multimedia-Volume-Up-1'></i>",
     "Ins",
     "Del"
   ],
@@ -82,13 +82,13 @@
     },
     "<i class='kb kb-Arrows-Right'></i>",
     "Vim G",
-    "",
+    "<i class='kb kb-Arrows-Left'></i>",
     {
       "n": true
     },
-    "",
-    "",
-    "",
+    "<i class='kb kb-Arrows-Down'></i>",
+    "<i class='kb kb-Arrows-Up'></i>",
+    "<i class='kb kb-Arrows-Right'></i>",
     "",
     "",
     {
@@ -111,35 +111,24 @@
       "a": 7,
       "f": 4
     },
-    "PgDn",
+    "Home",
     {
       "f": 5
     },
-    "PgUp",
+    "PgDn",
     {
       "f": 4
     },
-    "Home",
+    "PgUp",
     {
       "f": 5
     },
     "End",
     "Word Back",
-    "",
-    "",
-    {
-      "fa": [
-        4
-      ]
-    },
-    "<i class='kb kb-Multimedia-Volume-Down-1'></i>",
-    {
-      "f": 5
-    },
-    "<i class='kb kb-Multimedia-Volume-Up-1'></i>",
-    {
-      "f": 5
-    },
+    "Home",
+    "PgDn",
+    "PgUp",
+    "End",
     "<i class='kb kb-Multimedia-Mute-1'></i>",
     {
       "c": "#a2a8b8",
