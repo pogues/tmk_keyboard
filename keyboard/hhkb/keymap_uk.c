@@ -34,7 +34,6 @@
 // mask to determine if shift is held
 #define MODS_SHIFT_MASK (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT))
 #define SHIFT_HELD (get_mods() & MODS_SHIFT_MASK)
-#define SHIFT_ONESHOT (get_and_clear_oneshot_mods() & MODS_SHIFT_MASK)
 
 
 const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -54,7 +53,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KEYMAP( FN3,    1, FN24,    3,    4,    5,    6,    7,    8,    9,    0, MINS,  EQL, NUHS, NUBS,\
             TAB,    Q,    W,    E,    R,    T,    Y,    U,    I,    O,    P, LBRC, RBRC, BSPC,      \
             FN4,    A,    S,    D,    F,    G,    H,    J,    K,    L, SCLN, FN25,  FN5,            \
-           FN27,    Z,    X,    C,    V,    B,    N,    M, COMM,  DOT, SLSH, FN28, LGUI,            \
+           LSFT,    Z,    X,    C,    V,    B,    N,    M, COMM,  DOT, SLSH, RSFT, LGUI,            \
                  FN1,  FN2,          SPC,                FN0, LALT),
 
     /* Layer 1: brackets/symbols */
@@ -219,7 +218,7 @@ void action_funtion_vim_g(keyrecord_t *record)
             key_press_with_ctrl(KC_HOME);
         }
     }
-    else
+    else 
     {
         key_release(shift_held ? KC_END : KC_HOME);
     }
@@ -234,14 +233,14 @@ void action_funtion_vim_g(keyrecord_t *record)
  */
 void action_function_mods_layer_tap(keyrecord_t *record, uint8_t mods, uint8_t layer, uint8_t key)
 {
-    if (record->tap.count == 0 || record->tap.interrupted)
+    if (record->tap.count == 0 || record->tap.interrupted) 
     {
-        if (record->event.pressed)
+        if (record->event.pressed) 
         {
             layer_on(layer);
             add_weak_mods(mods);
         }
-        else
+        else 
         {
             del_weak_mods(mods);
             layer_off(layer);
@@ -249,7 +248,7 @@ void action_function_mods_layer_tap(keyrecord_t *record, uint8_t mods, uint8_t l
     }
     else
     {
-        if (record->event.pressed)
+        if (record->event.pressed) 
         {
             key_press(key);
         }
@@ -262,48 +261,23 @@ void action_function_mods_layer_tap(keyrecord_t *record, uint8_t mods, uint8_t l
 
 
 /**
- * utility that presses the shifted key if shift is pressed, the base key otherwise.
- * it honours oneshot shift modifiers too.
- */
-void action_function_alternate_key(
-    keyrecord_t *record, 
-    uint8_t shifted_key,
-    uint8_t base_key,
-    uint8_t *shifted,
-    uint8_t *oneshot)
-{
-    if (record->event.pressed)
-    {
-        (*oneshot) = SHIFT_ONESHOT;
-        (*shifted) = (*oneshot) || SHIFT_HELD;
-        if (*oneshot)
-        {
-            add_weak_mods(MOD_BIT(KC_LSFT));
-        }
-        key_press(*shifted ? shifted_key : base_key);
-    }
-    else
-    {
-        key_release(*shifted ? shifted_key : base_key);
-        if (*oneshot)
-        {
-            del_weak_mods(MOD_BIT(KC_LSFT));
-            send_keyboard_report();
-        }
-    }
-}
-
-
-/**
  * function that emits ' in unshifted but " in shifted.  records the staus
  * of the shift on press to ensure the correct key is released.
  */
 void action_function_alternate_shift_two(keyrecord_t *record)
 {
     static uint8_t shifted = false;
-    static uint8_t oneshot = false;
-    action_function_alternate_key(record, KC_QUOTE, KC_2, &shifted, &oneshot);
+    if (record->event.pressed)
+    {
+        shifted = SHIFT_HELD;
+        key_press(shifted ? KC_QUOTE : KC_2);
+    }
+    else
+    {
+        key_release(shifted ? KC_QUOTE : KC_2);
+    }
 }
+
 
 /**
  * function that emits 2 unshifted and @ shifted.  records the staus
@@ -312,10 +286,16 @@ void action_function_alternate_shift_two(keyrecord_t *record)
 void action_function_alternate_shift_quote(keyrecord_t *record)
 {
     static uint8_t shifted = false;
-    static uint8_t oneshot = false;
-    action_function_alternate_key(record, KC_2, KC_QUOTE, &shifted, &oneshot);
+    if (record->event.pressed)
+    {
+        shifted = SHIFT_HELD;
+        key_press(shifted ? KC_2 : KC_QUOTE);
+    }
+    else
+    {
+        key_release(shifted ? KC_2 : KC_QUOTE);
+    }
 }
-
 
 /**
  * enter a layer and record that we have.  when exiting the recorded layer is exited.
@@ -334,13 +314,15 @@ void action_function_multi_layer(keyrecord_t *record, uint8_t layer)
     {
         entered_layer = layer;
         layer_on(layer);
+        dprintf("Enter Layer %d", layer);
     }
-    else
+    else 
     {
         // exit the entered layer
         layer_off(entered_layer);
         // always setting back to 0 as that is the default, though should not get used
         entered_layer = 0;
+        dprintf("Exit Layer %d (from %d)", entered_layer, layer);
     }
 }
 
@@ -418,10 +400,6 @@ const action_t PROGMEM fn_actions[] = {
 
     // control and delete used in the alt layer...
     [26] = ACTION_MACRO(CTRL_DEL),
-
-    // enable one shot shift
-    [27] = ACTION_MODS_ONESHOT(MOD_LSFT),
-    [28] = ACTION_MODS_ONESHOT(MOD_RSFT),
 };
 
 /******************************************************************************
@@ -439,23 +417,31 @@ const action_t PROGMEM fn_actions[] = {
  *     action_t keymap_fn_to_action(uint8_t keycode)
  *     {
  *         uint8_t layer = biton32(layer_state);
- *
+ *     
  *         action_t action;
  *         action.code = ACTION_NO;
- *
- *         // here 1 is the motion layer
+ *     
+ *         // here 1 is the motion layer 
  *         if (layer == 1 && FN_INDEX(keycode) < FN_ACTIONS_MOTION_SIZE) {
  *             action.code = pgm_read_word(&fn_actions_motion[FN_INDEX(keycode)]);
  *         }
- *
+ *     
  *         // by default, use fn_actions from default layer 0
  *         // this is needed to get mapping for same key, that was used switch to some layer,
  *         // to have possibility to switch layers back
  *         if (action.code == ACTION_NO && FN_INDEX(keycode) < FN_ACTIONS_SIZE) {
  *             action.code = pgm_read_word(&fn_actions[FN_INDEX(keycode)]);
  *         }
- *
+ *     
  *         return action;
  *     }
- *
+ *     
+ *****************************************************************************/
+
+/******************************************************************************
+ * to use oneshot modifiers the functions need to be changed...
+ * expose get_oneshot_modifier in tmk_core/action_util.[c|h]
+ * then in the functions check if this is set and act shifted if so
+ * would also need to call clear_oneshot_mods once done
+ * plus check if this needs to honour the oneshot timeout specifically
  *****************************************************************************/
