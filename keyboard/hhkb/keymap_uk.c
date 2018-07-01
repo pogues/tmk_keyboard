@@ -75,7 +75,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            CAPS,   NO,  FN6,   UP,   NO,   NO,   NO,   NO, PSCR, SLCK, PAUS, FN10,  FN9, TRNS,      \
            TRNS,   NO, LEFT, DOWN, RGHT,  FN8, LEFT, DOWN,   UP, RGHT,   NO,   NO, TRNS,            \
            TRNS, HOME, PGDN, PGUP,  END,  FN7, HOME, PGDN, PGUP,  END, MUTE, TRNS, TRNS,            \
-                LALT,   NO,          SPC,               TRNS, RALT),
+                TRNS, TRNS,          SPC,               TRNS, RALT),
 
     /* Layer 4: Alt layer */
     KEYMAP(TRNS,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,  F10,  F11,  F12,  INS, FN26,\
@@ -368,8 +368,6 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
 const action_t PROGMEM fn_actions[] = {
     // Layers
     [0] = ACTION_LAYER_MOMENTARY(3),                // motion mode
-    //[1] = ACTION_LAYER_MOMENTARY(1),                // brackets mode
-    //[2] = ACTION_LAYER_MOMENTARY(2),                // numpad mode
     [1] = ACTION_FUNCTION(BRACKETS_LAYER),          // enter the brackets layer
     [2] = ACTION_FUNCTION(NUMPAD_LAYER),            // numpad layer
     [3] = ACTION_LAYER_MODS(4, MOD_LALT),           // enter layer 4 on holding esc, with alt held
