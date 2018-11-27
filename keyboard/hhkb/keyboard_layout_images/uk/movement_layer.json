@@ -52,8 +52,8 @@
     "PScr",
     "Scr Lck",
     "Paus",
-    "Para Back",
-    "Para Fwd",
+    "",
+    "",
     {
       "c": "#a2a8b8",
       "f": 7,
@@ -111,19 +111,19 @@
       "a": 7,
       "f": 4
     },
-    "Home",
+    "Undo",
     {
       "f": 5
     },
-    "PgDn",
+    "Cut",
     {
       "f": 4
     },
-    "PgUp",
+    "Copy",
     {
       "f": 5
     },
-    "End",
+    "Paste",
     "Word Back",
     "Home",
     "PgDn",
