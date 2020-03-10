@@ -51,16 +51,16 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *       `-------------------------------------------'
      */
     KEYMAP( \
-         FN3,    1, FN22,    3,    4,    5,    6,    7,    8,    9,    0, MINS,  EQL, NUBS,  DEL,\
+        FN29,    1, FN22,    3,    4,    5,    6,    7,    8,    9,    0, MINS,  EQL, NUBS,  DEL,\
          TAB,    Q,    W,    E,    R,    T,    Y,    U,    I,    O,    P, LBRC, RBRC, BSPC,      \
          FN4,    A,    S,    D,    F,    G,    H,    J,    K,    L, SCLN, FN23,  FN5,            \
         LSFT,    Z,    X,    C,    V,    B,    N,    M, COMM,  DOT, SLSH, RSFT, LGUI,            \
-                 FN1,  FN2,               SPC,                FN0, LALT
+                 FN1,  FN2,               SPC,                FN0, FN3
     ),
 
     /* Layer 1: brackets/symbols */
     KEYMAP( \
-         ESC,   NO,   NO,   NO,   NO,   NO,   NO, FN25, FN26,   NO,   NO,   NO,   NO,  INS,  DEL,\
+         ESC,   NO,   NO,   NO,   NO,   NO,   NO, FN25, FN26,   NO,   NO,   NO,   NO,  INS, TRNS,\
          TAB,   NO,   NO,   NO,   NO,   NO, FN16,  FN9, FN10, FN17, NUBS, TRNS, TRNS, TRNS,      \
         TRNS,   NO,   NO,   NO,   NO,   NO, NUHS, LBRC, RBRC, FN14, FN13,  GRV, TRNS,            \
         TRNS,   NO,   NO,   NO,   NO,   NO, FN21, FN11, FN12, FN18, FN20, TRNS, TRNS,            \
@@ -69,7 +69,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Layer 2: numpad */
     KEYMAP( \
-         PWR,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,  F10,  F11,  F12,  INS,  DEL,\
+         PWR,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,  F10,  F11,  F12,  INS, TRNS,\
          TAB,   NO,   NO,   NO,   NO,   NO, PPLS,    7,    8,    9, FN19,   NO,   NO, TRNS,      \
         LCTL,   NO,   NO,   NO,   NO,   NO, PMNS,    4,    5,    6, PAST,   NO, TRNS,            \
          SPC, TRNS,   NO,   NO,   NO,   NO,  EQL,    1,    2,    3, SLSH,  SPC, TRNS,            \
@@ -78,16 +78,16 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Layer 3: movement */
     KEYMAP( \
-         ESC,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9, MUTE, VOLD, VOLU,  INS,  DEL,\
+         ESC,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9, MUTE, VOLD, VOLU,  INS, TRNS,\
         CAPS,   NO,  FN6,   UP,   NO,   NO,   NO,   NO, PSCR, SLCK, PAUS, FN10,  FN9, TRNS,      \
         TRNS,   NO, LEFT, DOWN, RGHT,  FN8, LEFT, DOWN,   UP, RGHT,   NO,   NO, TRNS,            \
-        TRNS, FN30, FN29, FN28, FN27,  FN7, HOME, PGDN, PGUP,  END, MUTE, TRNS, TRNS,            \
+        TRNS,    Z,    X, FN27, FN28,  FN7, HOME, PGDN, PGUP,  END, MUTE, TRNS, TRNS,            \
                 TRNS, TRNS,               SPC,               TRNS, RALT
     ),
 
     /* Layer 4: Alt layer */
     KEYMAP( \
-        TRNS,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,  F10,  F11,  F12,  INS, FN24,\
+         PWR,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,  F10,  F11,  F12,  INS, TRNS,\
          TAB, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,      \
         TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,            \
         TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,            \
@@ -95,6 +95,15 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
+
+// useful names for the various layers
+enum layers {
+    LAYER_BASE,
+    LAYER_BRACKETS,
+    LAYER_NUMPAD,
+    LAYER_MOVEMENT,
+    LAYER_ALT,
+};
 
 /*
  * user defined action function
@@ -120,23 +129,27 @@ enum macro_id {
     GREATER_THAN,
     CTRL_INSERT,
     SHIFT_INSERT,
+    CTRL_SHIFT_C,
+    CTRL_SHIFT_V,
     CTRL_X,
     CTRL_Z,
 };
 
 /* id for user defined functions */
 enum function_id {
-    VIM_G,
-    LAYER_ESC,
-    BRACKETS_LAYER,
-    NUMPAD_LAYER,
-    ANSI_2,
-    ANSI_SINGLE_DOUBLE_QUOTE,
+    FN_VIM_G,
+    FN_LAYER_ESC,
+    FN_LAYER_TILING,
+    FN_BRACKETS_LAYER,
+    FN_NUMPAD_LAYER,
+    FN_ANSI_2,
+    FN_ANSI_SINGLE_DOUBLE_QUOTE,
 };
 
 
 #define CTRL_MACRO(KEY) (record->event.pressed ? MACRO(D(LCTRL), T(KEY), U(LCTRL), END) : MACRO_NONE)
 #define SHIFT_MACRO(KEY) (record->event.pressed ? MACRO(D(LSFT), T(KEY), U(LSFT), END) : MACRO_NONE)
+#define CTRL_SHIFT_MACRO(KEY) (record->event.pressed ? MACRO(D(LCTRL), D(LSFT), T(KEY), U(LSFT), U(LCTRL), END) : MACRO_NONE)
 
 /*
  * the macro definitions
@@ -183,6 +196,10 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
             return CTRL_MACRO(INS);
         case SHIFT_INSERT:
             return SHIFT_MACRO(INS);
+        case CTRL_SHIFT_C:
+            return CTRL_SHIFT_MACRO(C);
+        case CTRL_SHIFT_V:
+            return CTRL_SHIFT_MACRO(V);
         case CTRL_X:
             return CTRL_MACRO(X);
         case CTRL_Z:
@@ -312,14 +329,32 @@ void action_function_multi_layer(keyrecord_t *record, uint8_t layer) {
     if (record->event.pressed) {
         entered_layer = layer;
         layer_on(layer);
-        dprintf("Enter Layer %d", layer);
     }
     else {
         // exit the entered layer
         layer_off(entered_layer);
         // always setting back to 0 as that is the default, though should not get used
         entered_layer = 0;
-        dprintf("Exit Layer %d (from %d)", entered_layer, layer);
+    }
+}
+
+
+/**
+ * toggle the META and ALT modifiers held
+ */
+void action_function_toggle_tiling_layer(keyrecord_t *record) {
+    static uint8_t toggled_on = 0;
+
+    // only act on the key presses here...
+    if (record->event.pressed) {
+        if (toggled_on == 0) {
+            add_weak_mods(MOD_BIT(KC_LGUI) | MOD_BIT(KC_LALT));
+            toggled_on = 1;
+        }
+        else {
+            del_weak_mods(MOD_BIT(KC_LGUI) | MOD_BIT(KC_LALT));
+            toggled_on = 0;
+        }
     }
 }
 
@@ -329,23 +364,26 @@ void action_function_multi_layer(keyrecord_t *record, uint8_t layer) {
  */
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
     switch (id) {
-        case VIM_G:
+        case FN_VIM_G:
             action_funtion_vim_g(record);
             break;
-        case ANSI_2:
+        case FN_ANSI_2:
             action_function_alternate_shift_two(record);   // 2 @  under the UK layout
             break;
-        case ANSI_SINGLE_DOUBLE_QUOTE:
+        case FN_ANSI_SINGLE_DOUBLE_QUOTE:
             action_function_alternate_shift_quote(record);   // ' "  under the UK layout
             break;
-        case LAYER_ESC:
-            action_function_mods_layer_tap(record, MOD_BIT(KC_LALT), 4, KC_ESC);
+        case FN_LAYER_ESC:
+            action_function_mods_layer_tap(record, MOD_BIT(KC_LALT), LAYER_ALT, KC_ESC);
             break;
-        case BRACKETS_LAYER:
-            action_function_multi_layer(record, 1);
+        case FN_BRACKETS_LAYER:
+            action_function_multi_layer(record, LAYER_BRACKETS);
             break;
-        case NUMPAD_LAYER:
-            action_function_multi_layer(record, 2);
+        case FN_NUMPAD_LAYER:
+            action_function_multi_layer(record, LAYER_NUMPAD);
+            break;
+        case FN_LAYER_TILING:
+            action_function_toggle_tiling_layer(record);
             break;
     }
 }
@@ -356,11 +394,10 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
  */
 const action_t PROGMEM fn_actions[] = {
     // Layers
-    [0] = ACTION_LAYER_MOMENTARY(3),                // motion mode
-    [1] = ACTION_FUNCTION(BRACKETS_LAYER),          // enter the brackets layer
-    [2] = ACTION_FUNCTION(NUMPAD_LAYER),            // numpad layer
-    //[3] = ACTION_LAYER_MODS(4, MOD_LALT),           // enter layer 4 on holding esc, with alt held
-    [3] = ACTION_FUNCTION(LAYER_ESC),               // enter layer 4 on holding esc, with alt held
+    [0] = ACTION_LAYER_MOMENTARY(LAYER_MOVEMENT),
+    [1] = ACTION_FUNCTION(FN_BRACKETS_LAYER),
+    [2] = ACTION_FUNCTION(FN_NUMPAD_LAYER),
+    [3] = ACTION_FUNCTION(FN_LAYER_ESC),
 
     // control keys on the ends of the home row
     [4] = ACTION_MODS_TAP_KEY(MOD_LCTL, KC_ESC),    // LControl with tap ESC
@@ -369,7 +406,7 @@ const action_t PROGMEM fn_actions[] = {
     // motions
     [6] = ACTION_MACRO(FORWARD_WORD),               // ctrl+->
     [7] = ACTION_MACRO(BACKWARD_WORD),              // ctrl+<-
-    [8] = ACTION_FUNCTION(VIM_G),                   // g ==> ctrl+home, G ==> ctrl+end
+    [8] = ACTION_FUNCTION(FN_VIM_G),                   // g ==> ctrl+home, G ==> ctrl+end
 
     // brackets and symbols
     [9] = ACTION_MACRO(OPEN_PARENS),               // (brackets)u => (
@@ -387,8 +424,8 @@ const action_t PROGMEM fn_actions[] = {
     [21] = ACTION_MACRO(AMPERSAND),
 
     // uk key mappings to ansi versions
-    [22] = ACTION_FUNCTION(ANSI_2),
-    [23] = ACTION_FUNCTION(ANSI_SINGLE_DOUBLE_QUOTE),
+    [22] = ACTION_FUNCTION(FN_ANSI_2),
+    [23] = ACTION_FUNCTION(FN_ANSI_SINGLE_DOUBLE_QUOTE),
 
     // control and delete used in the alt layer...
     [24] = ACTION_MACRO(CTRL_DEL),
@@ -397,11 +434,17 @@ const action_t PROGMEM fn_actions[] = {
     [25] = ACTION_MACRO(LESS_THAN),
     [26] = ACTION_MACRO(GREATER_THAN),
 
+    // copy / paste alternatives.  uses insert key for windows and applies C-S C|V for linux
+#ifdef TARGET_PLATFORM_LINUX
+    // ctrl shift c and ctrl shift v (i.e. for terminals)
+    [27] = ACTION_MACRO(CTRL_SHIFT_C),
+    [28] = ACTION_MACRO(CTRL_SHIFT_V),
+#else
     // shift insert (paste) and control insert (copy) for windows
-    [27] = ACTION_MACRO(SHIFT_INSERT),
-    [28] = ACTION_MACRO(CTRL_INSERT),
-    [29] = ACTION_MACRO(CTRL_X),
-    [30] = ACTION_MACRO(CTRL_Z),
+    [27] = ACTION_MACRO(CTRL_INSERT),
+    [28] = ACTION_MACRO(SHIFT_INSERT),
+#endif
+    [29] = ACTION_FUNCTION(FN_LAYER_TILING),
 };
 
 /******************************************************************************
@@ -438,12 +481,4 @@ const action_t PROGMEM fn_actions[] = {
  *         return action;
  *     }
  *
- *****************************************************************************/
-
-/******************************************************************************
- * to use oneshot modifiers the functions need to be changed...
- * expose get_oneshot_modifier in tmk_core/action_util.[c|h]
- * then in the functions check if this is set and act shifted if so
- * would also need to call clear_oneshot_mods once done
- * plus check if this needs to honour the oneshot timeout specifically
  *****************************************************************************/
