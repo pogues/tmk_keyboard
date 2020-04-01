@@ -51,16 +51,16 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *       `-------------------------------------------'
      */
     KEYMAP( \
-        FN29,    1, FN22,    3,    4,    5,    6,    7,    8,    9,    0, MINS,  EQL, NUBS,  DEL,\
+         FN3,    1, FN22,    3,    4,    5,    6,    7,    8,    9,    0, MINS,  EQL, NUBS,  DEL,\
          TAB,    Q,    W,    E,    R,    T,    Y,    U,    I,    O,    P, LBRC, RBRC, BSPC,      \
          FN4,    A,    S,    D,    F,    G,    H,    J,    K,    L, SCLN, FN23,  FN5,            \
         LSFT,    Z,    X,    C,    V,    B,    N,    M, COMM,  DOT, SLSH, RSFT, LGUI,            \
-                 FN1,  FN2,               SPC,                FN0, FN3
+                 FN1,  FN2,               SPC,                FN0, LALT
     ),
 
     /* Layer 1: brackets/symbols */
     KEYMAP( \
-         ESC,   NO,   NO,   NO,   NO,   NO,   NO, FN25, FN26,   NO,   NO,   NO,   NO,  INS, TRNS,\
+         ESC,   NO,   NO,   NO,   NO,   NO,   NO,  FN3, FN26,   NO,   NO,   NO,   NO,  INS, TRNS,\
          TAB,   NO,   NO,   NO,   NO,   NO, FN16,  FN9, FN10, FN17, NUBS, TRNS, TRNS, TRNS,      \
         TRNS,   NO,   NO,   NO,   NO,   NO, NUHS, LBRC, RBRC, FN14, FN13,  GRV, TRNS,            \
         TRNS,   NO,   NO,   NO,   NO,   NO, FN21, FN11, FN12, FN18, FN20, TRNS, TRNS,            \
@@ -139,7 +139,6 @@ enum macro_id {
 enum function_id {
     FN_VIM_G,
     FN_LAYER_ESC,
-    FN_LAYER_TILING,
     FN_BRACKETS_LAYER,
     FN_NUMPAD_LAYER,
     FN_ANSI_2,
@@ -260,6 +259,7 @@ void action_funtion_vim_g(keyrecord_t *record) {
  *    enter a layer on press with a modifier held
  *    or
  *    press the given key when tapped
+ *    TODO - the tap component here does not work?
  */
 void action_function_mods_layer_tap(keyrecord_t *record, uint8_t mods, uint8_t layer, uint8_t key) {
     if (record->tap.count == 0 || record->tap.interrupted) {
@@ -340,26 +340,6 @@ void action_function_multi_layer(keyrecord_t *record, uint8_t layer) {
 
 
 /**
- * toggle the META and ALT modifiers held
- */
-void action_function_toggle_tiling_layer(keyrecord_t *record) {
-    static uint8_t toggled_on = 0;
-
-    // only act on the key presses here...
-    if (record->event.pressed) {
-        if (toggled_on == 0) {
-            add_weak_mods(MOD_BIT(KC_LGUI) | MOD_BIT(KC_LALT));
-            toggled_on = 1;
-        }
-        else {
-            del_weak_mods(MOD_BIT(KC_LGUI) | MOD_BIT(KC_LALT));
-            toggled_on = 0;
-        }
-    }
-}
-
-
-/**
  * main tmk action function called via the ACTION_FUNCTION in fn_actions
  */
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
@@ -381,9 +361,6 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
             break;
         case FN_NUMPAD_LAYER:
             action_function_multi_layer(record, LAYER_NUMPAD);
-            break;
-        case FN_LAYER_TILING:
-            action_function_toggle_tiling_layer(record);
             break;
     }
 }
@@ -434,17 +411,9 @@ const action_t PROGMEM fn_actions[] = {
     [25] = ACTION_MACRO(LESS_THAN),
     [26] = ACTION_MACRO(GREATER_THAN),
 
-    // copy / paste alternatives.  uses insert key for windows and applies C-S C|V for linux
-#ifdef TARGET_PLATFORM_LINUX
-    // ctrl shift c and ctrl shift v (i.e. for terminals)
-    [27] = ACTION_MACRO(CTRL_SHIFT_C),
-    [28] = ACTION_MACRO(CTRL_SHIFT_V),
-#else
     // shift insert (paste) and control insert (copy) for windows
     [27] = ACTION_MACRO(CTRL_INSERT),
     [28] = ACTION_MACRO(SHIFT_INSERT),
-#endif
-    [29] = ACTION_FUNCTION(FN_LAYER_TILING),
 };
 
 /******************************************************************************
