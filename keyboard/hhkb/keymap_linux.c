@@ -70,8 +70,8 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Layer 2: numpad */
     KEYMAP( \
          PWR,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,  F10,  F11,  F12,  INS, TRNS,\
-         TAB,   NO,   NO,   NO,   NO,   NO, PPLS,    7,    8,    9, FN18,   NO,   NO, TRNS,      \
-        LCTL,   NO,   NO,   NO,   NO,   NO, PMNS,    4,    5,    6, PAST,   NO, TRNS,            \
+         TAB,   NO,   NO,   NO,   NO,   NO, FN28,    7,    8,    9, FN18,   NO,   NO, TRNS,      \
+        LCTL,   NO,   NO,   NO,   NO,   NO, MINS,    4,    5,    6, FN27,   NO, TRNS,            \
          SPC, TRNS,   NO,   NO,   NO,   NO,  EQL,    1,    2,    3, SLSH,  SPC, TRNS,            \
                  FN0, TRNS,                 0,               COMM,  DOT
     ),
@@ -123,6 +123,8 @@ enum macro_id {
     CTRL_SHIFT_V,
     CTRL_X,
     CTRL_Z,
+    STAR,         // shift 8
+    PLUS,         // shift eq
 };
 
 /* id for user defined functions */
@@ -179,6 +181,10 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
             return CTRL_MACRO(DEL);
         case LESS_THAN:
             return SHIFT_MACRO(COMM);
+        case STAR:
+            return SHIFT_MACRO(8);
+        case PLUS:
+            return SHIFT_MACRO(EQL);
         case GREATER_THAN:
             return SHIFT_MACRO(DOT);
         case CTRL_INSERT:
@@ -368,6 +374,10 @@ const action_t PROGMEM fn_actions[] = {
     // ctrl shift c and ctrl shift v (i.e. for terminals)
     [25] = ACTION_MACRO(CTRL_SHIFT_C),
     [26] = ACTION_MACRO(CTRL_SHIFT_V),
+
+    // seems Arch has issues with numpad - (possibly others) so switch out
+    [27] = ACTION_MACRO(STAR),
+    [28] = ACTION_MACRO(PLUS),
 };
 
 /******************************************************************************
