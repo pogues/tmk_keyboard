@@ -54,7 +54,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LGUI,    1, FN21,    3,    4,    5,    6,    7,    8,    9,    0, MINS,  EQL, NUBS,  DEL,\
          TAB,    Q,    W,    E,    R,    T,    Y,    U,    I,    O,    P, LBRC, RBRC, BSPC,      \
          FN3,    A,    S,    D,    F,    G,    H,    J,    K,    L, SCLN, FN22,  FN4,            \
-        LSFT,    Z,    X,    C,    V,    B,    N,    M, COMM,  DOT, SLSH, RSFT, LGUI,            \
+        FN29,    Z,    X,    C,    V,    B,    N,    M, COMM,  DOT, SLSH, FN30, LGUI,            \
                  FN1,  FN2,               SPC,                FN0, LALT
     ),
 
@@ -378,6 +378,10 @@ const action_t PROGMEM fn_actions[] = {
     // seems Arch has issues with numpad - (possibly others) so switch out
     [27] = ACTION_MACRO(STAR),
     [28] = ACTION_MACRO(PLUS),
+
+    // shift keys as \ (vim leader) when tapped
+    [29] = ACTION_MODS_TAP_KEY(MOD_LSFT, KC_NUBS),
+    [30] = ACTION_MODS_TAP_KEY(MOD_RSFT, KC_NUBS),
 };
 
 /******************************************************************************
