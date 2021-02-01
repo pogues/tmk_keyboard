@@ -60,10 +60,10 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Layer 1: brackets/symbols */
     KEYMAP( \
-         ESC,   NO,   NO,   NO,   NO,   NO,   NO, FN23, FN24,   NO,   NO,   NO,   NO,  INS, TRNS,\
-         TAB,   NO,   NO,   NO,   NO,   NO, FN15,  FN8, FN9, FN16, NUBS, TRNS, TRNS, TRNS,      \
+         ESC,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,  F10,  F11,  F12,  INS, TRNS,\
+         TAB,   NO,   NO,   NO,   NO,   NO, FN15,  FN8,  FN9, FN16, NUBS, TRNS, TRNS, TRNS,      \
         TRNS,   NO,   NO,   NO,   NO,   NO, NUHS, LBRC, RBRC, FN13, FN12,  GRV, TRNS,            \
-        TRNS,   NO,   NO,   NO,   NO,   NO, FN20, FN10, FN11, FN17, FN19, TRNS, TRNS,            \
+        TRNS,   NO,   NO, FN23, FN24,   NO, FN20, FN10, FN11, FN17, FN19, TRNS, TRNS,            \
                 TRNS,  FN0,              FN14,                 NO, RALT
     ),
 
@@ -72,7 +72,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          PWR,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,  F10,  F11,  F12,  INS, TRNS,\
          TAB,   NO,   NO,   NO,   NO,   NO, FN28,    7,    8,    9, FN18,   NO,   NO, TRNS,      \
         LCTL,   NO,   NO,   NO,   NO,   NO, MINS,    4,    5,    6, FN27,   NO, TRNS,            \
-         SPC, TRNS,   NO,   NO,   NO,   NO,  EQL,    1,    2,    3, SLSH,  SPC, TRNS,            \
+         SPC, TRNS,   NO, FN23, FN24,   NO,  EQL,    1,    2,    3, SLSH,  SPC, TRNS,            \
                  FN0, TRNS,                 0,               COMM,  DOT
     ),
 
