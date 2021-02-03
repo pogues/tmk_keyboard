@@ -54,7 +54,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LGUI,    1, FN21,    3,    4,    5,    6,    7,    8,    9,    0, MINS,  EQL, NUBS,  DEL,\
          TAB,    Q,    W,    E,    R,    T,    Y,    U,    I,    O,    P, LBRC, RBRC, BSPC,      \
          FN3,    A,    S,    D,    F,    G,    H,    J,    K,    L, SCLN, FN22,  FN4,            \
-        FN29,    Z,    X,    C,    V,    B,    N,    M, COMM,  DOT, SLSH, FN30, LGUI,            \
+        FN29,    Z,    X,    C,    V,    B,    N,    M, COMM,  DOT, SLSH, FN29, LGUI,            \
                  FN1,  FN2,               SPC,                FN0, LALT
     ),
 
@@ -63,7 +63,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          ESC,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,  F10,  F11,  F12,  INS, TRNS,\
          TAB,   NO,   NO,   NO,   NO,   NO, FN15,  FN8,  FN9, FN16, NUBS, TRNS, TRNS, TRNS,      \
         TRNS,   NO,   NO,   NO,   NO,   NO, NUHS, LBRC, RBRC, FN13, FN12,  GRV, TRNS,            \
-        TRNS,   NO,   NO, FN23, FN24,   NO, FN20, FN10, FN11, FN17, FN19, TRNS, TRNS,            \
+        LSFT,   NO,   NO, FN23, FN24,   NO, FN20, FN10, FN11, FN17, FN19, RSFT, TRNS,            \
                 TRNS,  FN0,              FN14,                 NO, RALT
     ),
 
@@ -72,7 +72,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          PWR,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,  F10,  F11,  F12,  INS, TRNS,\
          TAB,   NO,   NO,   NO,   NO,   NO, FN28,    7,    8,    9, FN18,   NO,   NO, TRNS,      \
         LCTL,   NO,   NO,   NO,   NO,   NO, MINS,    4,    5,    6, FN27,   NO, TRNS,            \
-         SPC, TRNS,   NO, FN23, FN24,   NO,  EQL,    1,    2,    3, SLSH,  SPC, TRNS,            \
+         SPC,   NO,   NO, FN23, FN24,   NO,  EQL,    1,    2,    3, SLSH,  SPC, TRNS,            \
                  FN0, TRNS,                 0,               COMM,  DOT
     ),
 
@@ -81,7 +81,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          ESC,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9, MUTE, VOLD, VOLU,  INS, TRNS,\
         CAPS,   NO,  FN5,   UP,   NO,   NO,   NO,   NO, PSCR, SLCK, PAUS, FN9,  FN8, TRNS,      \
         TRNS,   NO, LEFT, DOWN, RGHT,  FN7, LEFT, DOWN,   UP, RGHT,   NO,   NO, TRNS,            \
-        TRNS,    Z,    X, FN25, FN26,  FN6, HOME, PGDN, PGUP,  END, MUTE, TRNS, TRNS,            \
+        LSFT, FN30, FN31, FN25, FN26,  FN6, HOME, PGDN, PGUP,  END, MUTE, RSFT, TRNS,            \
                 TRNS, TRNS,               SPC,               TRNS, RALT
     ),
 };
@@ -381,7 +381,10 @@ const action_t PROGMEM fn_actions[] = {
 
     // shift keys as \ (vim leader) when tapped
     [29] = ACTION_MODS_TAP_KEY(MOD_LSFT, KC_NUBS),
-    [30] = ACTION_MODS_TAP_KEY(MOD_RSFT, KC_NUBS),
+
+    // ctrl z / x on motion layer
+    [30] = ACTION_MACRO(CTRL_Z),
+    [30] = ACTION_MACRO(CTRL_X),
 };
 
 /******************************************************************************
