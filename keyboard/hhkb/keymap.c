@@ -81,7 +81,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          ESC,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,  F10,  F11,  F12,  INS, TRNS,\
         CAPS,   NO,  FN5,   UP,   NO,   NO,   NO,   NO, PSCR, SLCK, PAUS, FN9,  FN8, TRNS,      \
         TRNS,   NO, LEFT, DOWN, RGHT,  FN7, LEFT, DOWN,   UP, RGHT,   NO,   NO, TRNS,            \
-        LSFT, FN30, FN31, FN25, FN26,  FN6, HOME, PGDN, PGUP,  END, MUTE, RSFT, TRNS,            \
+        LSFT, FN30,   NO, FN25, FN26,  FN6, HOME, PGDN, PGUP,  END, MUTE, RSFT, TRNS,            \
                 TRNS, TRNS,               SPC,               TRNS, RALT
     ),
 };
@@ -114,23 +114,18 @@ enum macro_id {
     PERCENT,
     HAT,
     AMPERSAND,
-    CTRL_DEL,
     LESS_THAN,
     GREATER_THAN,
-    CTRL_INSERT,
-    SHIFT_INSERT,
     CTRL_SHIFT_C,
     CTRL_SHIFT_V,
-    CTRL_X,
-    CTRL_Z,
     STAR,         // shift 8
     PLUS,         // shift eq
+    FULL_NAME,    // Print name.
 };
 
 /* id for user defined functions */
 enum function_id {
     FN_VIM_G,
-    FN_LAYER_ESC,
     FN_BRACKETS_LAYER,
     FN_NUMPAD_LAYER,
     FN_ANSI_2,
@@ -177,8 +172,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
             return SHIFT_MACRO(7);
         case OPEN_PARENS:
             return SHIFT_MACRO(9);
-        case CTRL_DEL:
-            return CTRL_MACRO(DEL);
         case LESS_THAN:
             return SHIFT_MACRO(COMM);
         case STAR:
@@ -187,18 +180,14 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
             return SHIFT_MACRO(EQL);
         case GREATER_THAN:
             return SHIFT_MACRO(DOT);
-        case CTRL_INSERT:
-            return CTRL_MACRO(INS);
-        case SHIFT_INSERT:
-            return SHIFT_MACRO(INS);
         case CTRL_SHIFT_C:
             return CTRL_SHIFT_MACRO(C);
         case CTRL_SHIFT_V:
             return CTRL_SHIFT_MACRO(V);
-        case CTRL_X:
-            return CTRL_MACRO(X);
-        case CTRL_Z:
-            return CTRL_MACRO(Z);
+        case FULL_NAME:
+            return (record->event.pressed ? 
+                MACRO(I(0), D(LSFT), T(P), U(LSFT), T(A), T(U), T(L), T(SPC), D(LSFT), T(R), U(LSFT), T(O), T(E), T(DOT), END) :
+                MACRO_NONE );
     }
     return MACRO_NONE;
 }
@@ -383,9 +372,8 @@ const action_t PROGMEM fn_actions[] = {
     // shift keys as \ (vim leader) when tapped
     [29] = ACTION_MODS_TAP_KEY(MOD_LSFT, KC_NUBS),
 
-    // ctrl z / x on motion layer
-    [30] = ACTION_MACRO(CTRL_Z),
-    [30] = ACTION_MACRO(CTRL_X),
+    // print full name on motion layer with z
+    [30] = ACTION_MACRO(FULL_NAME),
 };
 
 /******************************************************************************
