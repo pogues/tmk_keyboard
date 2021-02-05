@@ -62,7 +62,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KEYMAP( \
          ESC,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,  F10,  F11,  F12,  INS, TRNS,\
          TAB,   NO,   NO,   NO,   NO,   NO, FN15,  FN8,  FN9, FN16, NUBS, TRNS, TRNS, TRNS,      \
-        TRNS,   NO,   NO,   NO,   NO,   NO, NUHS, LBRC, RBRC, FN13, FN12,  GRV, TRNS,            \
+        TRNS, VOLD, VOLU, MUTE, EJCT,   NO, NUHS, LBRC, RBRC, FN13, FN12,  GRV, TRNS,            \
         LSFT,   NO,   NO, FN23, FN24,   NO, FN20, FN10, FN11, FN17, FN19, RSFT, TRNS,            \
                 TRNS,  FN0,              FN14,                 NO, RALT
     ),
@@ -71,14 +71,14 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KEYMAP( \
          PWR,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,  F10,  F11,  F12,  INS, TRNS,\
          TAB,   NO,   NO,   NO,   NO,   NO, FN28,    7,    8,    9, FN18,   NO,   NO, TRNS,      \
-        LCTL,   NO,   NO,   NO,   NO,   NO, MINS,    4,    5,    6, FN27,   NO, TRNS,            \
+        LCTL,   NO,   NO,   NO,   NO,   NO, MINS,    4,    5,    6, FN27,   NO,  ENT,            \
          SPC,   NO,   NO, FN23, FN24,   NO,  EQL,    1,    2,    3, SLSH,  SPC, TRNS,            \
                  FN0, TRNS,                 0,               COMM,  DOT
     ),
 
     /* Layer 3: movement */
     KEYMAP( \
-         ESC,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9, MUTE, VOLD, VOLU,  INS, TRNS,\
+         ESC,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,  F10,  F11,  F12,  INS, TRNS,\
         CAPS,   NO,  FN5,   UP,   NO,   NO,   NO,   NO, PSCR, SLCK, PAUS, FN9,  FN8, TRNS,      \
         TRNS,   NO, LEFT, DOWN, RGHT,  FN7, LEFT, DOWN,   UP, RGHT,   NO,   NO, TRNS,            \
         LSFT, FN30, FN31, FN25, FN26,  FN6, HOME, PGDN, PGUP,  END, MUTE, RSFT, TRNS,            \
