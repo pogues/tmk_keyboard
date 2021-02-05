@@ -47,9 +47,6 @@ TMK_DIR ?= ../../tmk_core
 # Directory keyboard dependent files exist
 TARGET_DIR ?= .
 
-# are we building for windows or linux targets; comment this out for windows
-EXTRAFLAGS += -DTARGET_PLATFORM_LINUX
-
 # List C source files here. (C dependencies are automatically generated.)
 SRC ?=	matrix.c \
 	led.c
@@ -147,7 +144,7 @@ else
     ifeq (yes,$(strip $(HHKB_JP)))
         SRC := $(KEYMAP_FILE)_jp.c $(SRC)
     else 
-        SRC := $(KEYMAP_FILE)_linux.c $(SRC)
+        SRC := $(KEYMAP_FILE).c $(SRC)
     endif
 endif
 
