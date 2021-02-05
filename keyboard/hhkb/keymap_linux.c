@@ -372,6 +372,7 @@ const action_t PROGMEM fn_actions[] = {
     [24] = ACTION_MACRO(GREATER_THAN),
 
     // ctrl shift c and ctrl shift v (i.e. for terminals)
+    // note windows would be ctrl-insert (copy) and shift-insert (paste) if needed...
     [25] = ACTION_MACRO(CTRL_SHIFT_C),
     [26] = ACTION_MACRO(CTRL_SHIFT_V),
 
