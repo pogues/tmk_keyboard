@@ -1,7 +1,0 @@
-red:            F1201F
-blue:           5B80E5
-light green:    BFDBC7
-purple:         8236CD
-yellow:         F1F083
-pink:           E7A5DE
-tiffany:        118BA2

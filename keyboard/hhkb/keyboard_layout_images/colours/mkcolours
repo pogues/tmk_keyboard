@@ -1,7 +1,0 @@
-cat grey_modifiers.json | sed -e 's/a2a8b8/F1201F/g' > red_modifiers.json
-cat grey_modifiers.json | sed -e 's/a2a8b8/5B80E5/g' > blue_modifiers.json
-cat grey_modifiers.json | sed -e 's/a2a8b8/BFDBC7/g' > light green_modifiers.json
-cat grey_modifiers.json | sed -e 's/a2a8b8/8236CD/g' > purple_modifiers.json
-cat grey_modifiers.json | sed -e 's/a2a8b8/F1F083/g' > yellow_modifiers.json
-cat grey_modifiers.json | sed -e 's/a2a8b8/E7A5DE/g' > pink_modifiers.json
-cat grey_modifiers.json | sed -e 's/a2a8b8/118BA2/g' > tiffany_modifiers.json
