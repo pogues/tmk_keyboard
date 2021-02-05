@@ -21,9 +21,9 @@
     "F7",
     "F8",
     "F9",
-    "F10",
-    "F11",
-    "F12",
+    "<i class='kb kb-Multimedia-Mute-1'></i>",
+    "<i class='kb kb-Multimedia-Volume-Down-1'></i>",
+    "<i class='kb kb-Multimedia-Volume-Up-1'></i>",
     "Ins",
     "Del"
   ],
@@ -39,21 +39,21 @@
       "a": 7,
       "f": 4
     },
-    "Paus",
+    "",
     {
       "f": 5
     },
     "Word Fwd",
     "<i class='kb kb-Arrows-Up'></i>",
-    "Redo",
     "",
-    "Yank",
-    "Undo",
+    "",
+    "",
+    "",
     "PScr",
     "Scr Lck",
-    "Put",
-    "Para Back",
-    "Para Fwd",
+    "Paus",
+    "",
+    "",
     {
       "c": "#a2a8b8",
       "f": 7,
@@ -109,38 +109,27 @@
       "c": "#cccccc",
       "t": "#000000",
       "a": 7,
-      "f": 4
+      "f": 6
     },
-    "PgDn",
+    "<i class='fa fa-tag'></i>",
     {
       "f": 5
     },
-    "PgUp",
+    "",
     {
       "f": 4
     },
-    "Home",
+    "Copy",
     {
       "f": 5
     },
-    "End",
+    "Paste",
     "Word Back",
-    {
-      "fa": [
-        4
-      ]
-    },
     "Home",
     "PgDn",
     "PgUp",
-    {
-      "f": 5
-    },
     "End",
-    {
-      "f": 5
-    },
-    "Find",
+    "<i class='kb kb-Multimedia-Mute-1'></i>",
     {
       "c": "#a2a8b8",
       "t": "#ff0000",
@@ -154,13 +143,14 @@
       "a": 7,
       "f": 7
     },
-    "◇"
+    "<i class='fa fa-linux'></i>"
   ],
   [
     {
       "x": 1.55,
       "a": 6,
-      "f": 5
+      "f": 5,
+      "c": "#e36b94"
     },
     "Alt",
     {
@@ -174,7 +164,7 @@
       "f": 5,
       "w": 6
     },
-    "",
+    "[space]",
     {
       "c": "#c13828",
       "f": 4,
