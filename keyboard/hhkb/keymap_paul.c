@@ -81,7 +81,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          ESC,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,  F10,  F11,  F12,  INS, TRNS,\
         CAPS,   NO,  FN5,   UP,   NO,   NO,   NO,   NO, PSCR, SLCK, PAUS, FN9,  FN8, TRNS,      \
         TRNS,   NO, LEFT, DOWN, RGHT,  FN7, LEFT, DOWN,   UP, RGHT,   NO,   NO, TRNS,            \
-        LSFT, FN30,   NO, FN25, FN26,  FN6, HOME, PGDN, PGUP,  END, MUTE, RSFT, TRNS,            \
+        LSFT, FN30,   NO, FN25, FN26,  FN6, HOME, PGDN, PGUP,  END,   NO, RSFT, TRNS,            \
                 TRNS, TRNS,               SPC,               TRNS, RALT
     ),
 };
