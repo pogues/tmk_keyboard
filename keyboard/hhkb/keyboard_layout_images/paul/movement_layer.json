@@ -44,7 +44,7 @@
       "f": 5
     },
     "Word Fwd",
-    "<i class='kb kb-Arrows-Up'></i>",
+    "<i class='kb kb-Arrows-Up-Circle-Filled'></i>",
     "",
     "",
     "",
@@ -75,12 +75,12 @@
       "a": 7
     },
     "",
-    "<i class='kb kb-Arrows-Left'></i>",
-    "<i class='kb kb-Arrows-Down'></i>",
+    "<i class='kb kb-Arrows-Left-Circle-Filled'></i>",
+    "<i class='kb kb-Arrows-Down-Circle-Filled'></i>",
     {
       "n": true
     },
-    "<i class='kb kb-Arrows-Right'></i>",
+    "<i class='kb kb-Arrows-Right-Circle-Filled'></i>",
     "Vim G",
     "<i class='kb kb-Arrows-Left'></i>",
     {

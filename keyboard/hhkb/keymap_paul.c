@@ -78,9 +78,9 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Layer 3: movement */
     KEYMAP( \
-         ESC, MS_L, MS_D, MS_U, MS_R,   NO,   NO,   NO,   NO,   NO,   NO,   NO,   NO,  INS, TRNS,\
-        CAPS,   NO,  FN5,   UP,   NO,   NO,   NO,   NO, PSCR, SLCK, PAUS, FN9,  FN8, TRNS,      \
-        TRNS,   NO, LEFT, DOWN, RGHT,  FN7, LEFT, DOWN,   UP, RGHT,   NO,   NO, TRNS,            \
+         ESC,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,  F10,  F11,  F12,  INS, TRNS,\
+        CAPS,   NO,  FN5, MS_U, BTN3, BTN2,   NO,   NO, PSCR, SLCK, PAUS,   NO,   NO, TRNS,      \
+        TRNS,   NO, MS_L, MS_D, MS_R,  FN7, LEFT, DOWN,   UP, RGHT,   NO,   NO, TRNS,            \
         LSFT, FN30,   NO, FN25, FN26,  FN6, HOME, PGDN, PGUP,  END,   NO, RSFT, TRNS,            \
                 TRNS, TRNS,              BTN1,               TRNS, RALT
     ),
