@@ -51,11 +51,11 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *       `-------------------------------------------'
      */
     KEYMAP( \
-        LGUI,    1, FN21,    3,    4,    5,    6,    7,    8,    9,    0, MINS,  EQL, NUBS,  DEL,\
+        FN29,    1, FN21,    3,    4,    5,    6,    7,    8,    9,    0, MINS,  EQL, NUBS,  DEL,\
          TAB,    Q,    W,    E,    R,    T,    Y,    U,    I,    O,    P, LBRC, RBRC, BSPC,      \
          FN3,    A,    S,    D,    F,    G,    H,    J,    K,    L, SCLN, FN22,  FN4,            \
-        FN29,    Z,    X,    C,    V,    B,    N,    M, COMM,  DOT, SLSH, FN29, LGUI,            \
-                 FN1,  FN2,               SPC,                FN0, LALT
+        LSFT,    Z,    X,    C,    V,    B,    N,    M, COMM,  DOT, SLSH, RSFT, LGUI,            \
+                 FN1,  FN2,              FN31,                FN0, LALT
     ),
 
     /* Layer 1: brackets/symbols */
@@ -80,9 +80,9 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KEYMAP( \
          ESC,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,  F10,  F11,  F12,  INS, TRNS,\
         CAPS,   NO,  FN5, MS_U, BTN2, BTN3,   NO,   NO, PSCR, SLCK, PAUS,   NO,   NO, TRNS,      \
-        TRNS,   NO, MS_L, MS_D, MS_R,  FN7, LEFT, DOWN,   UP, RGHT,   NO,   NO, TRNS,            \
+        TRNS,   NO, MS_L, MS_D, MS_R,  FN7, LEFT, DOWN,   UP, RGHT,   NO,   NO, BTN1,            \
         LSFT, FN30,   NO, FN25, FN26,  FN6, HOME, PGDN, PGUP,  END,   NO, RSFT, TRNS,            \
-                TRNS, TRNS,              BTN1,               TRNS, RALT
+                TRNS, TRNS,              TRNS,               TRNS, RALT
     ),
 };
 
@@ -369,11 +369,14 @@ const action_t PROGMEM fn_actions[] = {
     [27] = ACTION_MACRO(STAR),
     [28] = ACTION_MACRO(PLUS),
 
-    // shift keys as \ (vim leader) when tapped
-    [29] = ACTION_MODS_TAP_KEY(MOD_LSFT, KC_NUBS),
+    // upper left esc as backspace when tapped, LGUI when held
+    [29] = ACTION_MODS_TAP_KEY(MOD_LGUI, KC_BSPC),
 
     // print full name on motion layer with z
     [30] = ACTION_MACRO(FULL_NAME),
+
+    // movement layer when space held
+    [31] = ACTION_LAYER_TAP_KEY(LAYER_MOVEMENT, KC_SPC),
 };
 
 /******************************************************************************
