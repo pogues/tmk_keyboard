@@ -21,9 +21,9 @@
     "F7",
     "F8",
     "F9",
-    "<i class='kb kb-Multimedia-Mute-1'></i>",
-    "<i class='kb kb-Multimedia-Volume-Down-1'></i>",
-    "<i class='kb kb-Multimedia-Volume-Up-1'></i>",
+    "F10",
+    "F11",
+    "F12",
     "Ins",
     "Del"
   ],
@@ -45,8 +45,8 @@
     },
     "Word Fwd",
     "<i class='kb kb-Arrows-Up-Circle-Filled'></i>",
-    "",
-    "",
+    "Btn2",
+    "Btn3",
     "",
     "",
     "PScr",
@@ -97,7 +97,7 @@
       "a": 6,
       "w": 2.25
     },
-    "Return\n\nCtrl"
+    "Btn1"
   ],
   [
     {
@@ -111,7 +111,7 @@
       "a": 7,
       "f": 6
     },
-    "<i class='fa fa-tag'></i>",
+    "",
     {
       "f": 5
     },
@@ -129,7 +129,7 @@
     "PgDn",
     "PgUp",
     "End",
-    "<i class='kb kb-Multimedia-Mute-1'></i>",
+    "",
     {
       "c": "#a2a8b8",
       "t": "#ff0000",
@@ -150,9 +150,9 @@
       "x": 1.55,
       "a": 6,
       "f": 5,
-      "c": "#e36b94"
+      "c": "#a2a8b8"
     },
-    "Alt",
+    "",
     {
       "a": 7,
       "f": 4,
@@ -160,17 +160,17 @@
     },
     "",
     {
-      "c": "#cccccc",
+      "c": "#c13828",
       "f": 5,
       "w": 6
     },
-    "[space]",
+    "L3",
     {
-      "c": "#c13828",
+      "c": "#a2a8b8",
       "f": 4,
       "w": 1.5
     },
-    "",
+    "<i class='fa fa-tag'></i>",
     {
       "c": "#a2a8b8",
       "a": 6,
@@ -183,6 +183,6 @@
       "w": 2.25,
       "d": true
     },
-    "<b>Motion</b>\n<b>(Layer 1)</b>"
+    "<b>Motion</b>\n<b>(Layer 3)</b>"
   ]
 ]
