@@ -56,7 +56,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *       `-------------------------------------------'
      */
     KEYMAP( \
-        BSPC,    1, FN21,    3,    4,    5,    6,    7,    8,    9,    0, MINS,  EQL, NUBS,  DEL,\
+        FN29,    1, FN21,    3,    4,    5,    6,    7,    8,    9,    0, MINS,  EQL, NUBS,  DEL,\
          TAB,    Q,    W,    E,    R,    T,    Y,    U,    I,    O,    P, LBRC, RBRC, BSPC,      \
          FN3,    A,    S,    D,    F,    G,    H,    J,    K,    L, SCLN, FN22,  FN4,            \
         LSFT,    Z,    X,    C,    V,    B,    N,    M, COMM,  DOT, SLSH, RSFT, LGUI,            \
@@ -76,7 +76,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KEYMAP( \
          PWR,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,  F10,  F11,  F12,  INS, TRNS,\
          TAB,   NO,   NO,   NO,   NO,   NO, FN28,    7,    8,    9, FN18,   NO,   NO, TRNS,      \
-        LCTL,   NO,   NO,   NO,   NO,   NO, MINS,    4,    5,    6, FN27,   NO,  ENT,            \
+        LCTL,   NO,   NO,   NO,   NO,   NO, MINS,    4,    5,    6, FN27,   NO, TRNS,            \
          SPC,   NO,   NO, FN23, FN24,   NO,  EQL,    1,    2,    3, SLSH,  SPC, TRNS,            \
                   NO, TRNS,                 0,               COMM,  DOT
     ),
@@ -87,7 +87,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         CAPS,   NO,  FN5, MS_U, BTN2, BTN3,   NO,   NO, PSCR, SLCK, PAUS,   NO,   NO, TRNS,      \
         TRNS,   NO, MS_L, MS_D, MS_R,  FN7, LEFT, DOWN,   UP, RGHT,   NO,   NO, BTN1,            \
         LSFT,   NO,   NO, FN25, FN26,  FN6, HOME, PGDN, PGUP,  END,   NO, RSFT, TRNS,            \
-                  NO,   NO,              TRNS,               FN29, RALT
+                  NO,   NO,              TRNS,               FN30, RALT
     ),
 };
 
@@ -346,8 +346,11 @@ const action_t PROGMEM fn_actions[] = {
     [27] = ACTION_MACRO(STAR),
     [28] = ACTION_MACRO(PLUS),
 
+    // LGUI on hold, backspace on tap.
+    [29] = ACTION_MODS_TAP_KEY(MOD_LGUI, KC_BSPC), 
+
     // print full name on motion layer with z
-    [29] = ACTION_MACRO(FULL_NAME),
+    [30] = ACTION_MACRO(FULL_NAME),
 };
 
 /******************************************************************************
