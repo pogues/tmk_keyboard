@@ -29,10 +29,6 @@
  *  w and b are word forward and word back
  *  [ and ] are paragraph back and paragraph forward
  *
- *  NOTE:
- *     tag paul_v1.3 has the code action_function_multi_layer to enable 
- *     left alt/gui to enter a third (movement) layer.
- *
  */
 #include "keymap_common.h"
 
@@ -69,7 +65,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          TAB,   NO,   NO,   NO,   NO,   NO, FN15,  FN8,  FN9, FN16, NUBS, TRNS, TRNS, TRNS,      \
         TRNS, VOLD, VOLU, MUTE, EJCT,   NO, NUHS, LBRC, RBRC, FN13, FN12,  GRV, TRNS,            \
         LSFT,   NO,   NO, FN23, FN24,   NO, FN20, FN10, FN11, FN17, FN19, RSFT, TRNS,            \
-                TRNS,   NO,              FN14,               FN23, FN24
+                TRNS, FN30,              FN14,               FN23, FN24
     ),
 
     /* Layer 2: numpad */
@@ -78,7 +74,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          TAB,   NO,   NO,   NO,   NO,   NO, FN28,    7,    8,    9, FN18,   NO,   NO, TRNS,      \
         LCTL,   NO,   NO,   NO,   NO,   NO, MINS,    4,    5,    6, FN27,   NO, TRNS,            \
          SPC,   NO,   NO, FN23, FN24,   NO,  EQL,    1,    2,    3, SLSH,  SPC, TRNS,            \
-                  NO, TRNS,                 0,               COMM,  DOT
+                FN30, TRNS,                 0,               COMM,  DOT
     ),
 
     /* Layer 3: movement */
@@ -87,7 +83,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         CAPS,   NO,  FN5, MS_U, BTN2, BTN3,   NO,   NO, PSCR, SLCK, PAUS,   NO,   NO, TRNS,      \
         TRNS,   NO, MS_L, MS_D, MS_R,  FN7, LEFT, DOWN,   UP, RGHT,   NO,   NO, BTN1,            \
         LSFT,   NO,   NO, FN25, FN26,  FN6, HOME, PGDN, PGUP,  END,   NO, RSFT, TRNS,            \
-                  NO,   NO,              TRNS,               FN30, RALT
+                  NO,   NO,              TRNS,               FN31, RALT
     ),
 };
 
@@ -131,6 +127,8 @@ enum macro_id {
 /* id for user defined functions */
 enum function_id {
     FN_VIM_G,
+    FN_BRACKETS_LAYER,
+    FN_NUMPAD_LAYER,
     FN_ANSI_2,
     FN_ANSI_SINGLE_DOUBLE_QUOTE,
 };
@@ -279,6 +277,31 @@ void action_function_alternate_shift_quote(keyrecord_t *record) {
 
 
 /**
+ * enter a layer and record that we have.  when exiting the recorded layer is exited.
+ * we use this to have a pair of keys, (lalt and lmeta) where:
+ *      in the base layer lalt enters layer 1 and lmeta enters layer 2
+ *      both these keys are TRNS in the respective layers, but the other enters layer 3
+ *      in this case if we press A then B then release B then A all is OK.
+ *      the code below handles the case where we press A then B then release A then B
+ *      exiting the correct layer underneath.
+ */
+void action_function_multi_layer(keyrecord_t *record, uint8_t layer) {
+    static uint8_t entered_layer = 0;
+
+    if (record->event.pressed) {
+        entered_layer = layer;
+        layer_on(layer);
+    }
+    else {
+        // exit the entered layer
+        layer_off(entered_layer);
+        // always setting back to 0 as that is the default, though should not get used
+        entered_layer = 0;
+    }
+}
+
+
+/**
  * main tmk action function called via the ACTION_FUNCTION in fn_actions
  */
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
@@ -292,6 +315,12 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
         case FN_ANSI_SINGLE_DOUBLE_QUOTE:
             action_function_alternate_shift_quote(record);   // ' "  under the UK layout
             break;
+        case FN_BRACKETS_LAYER:
+            action_function_multi_layer(record, LAYER_BRACKETS);
+            break;
+        case FN_NUMPAD_LAYER:
+            action_function_multi_layer(record, LAYER_NUMPAD);
+            break;
     }
 }
 
@@ -301,8 +330,8 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
  */
 const action_t PROGMEM fn_actions[] = {
     // Layers
-    [0] = ACTION_LAYER_MOMENTARY(LAYER_BRACKETS),
-    [1] = ACTION_LAYER_MOMENTARY(LAYER_NUMPAD),
+    [0] = ACTION_FUNCTION(FN_BRACKETS_LAYER),
+    [1] = ACTION_FUNCTION(FN_NUMPAD_LAYER),
     [2] = ACTION_LAYER_TAP_KEY(LAYER_MOVEMENT, KC_SPC),
 
     // control keys on the ends of the home row
@@ -349,8 +378,11 @@ const action_t PROGMEM fn_actions[] = {
     // LGUI on hold, backspace on tap.
     [29] = ACTION_MODS_TAP_KEY(MOD_LGUI, KC_BSPC), 
 
+    // repeat the movement layer here (without space) - used when LALT and LGUI pressed.
+    [30] = ACTION_LAYER_MOMENTARY(LAYER_MOVEMENT),
+
     // print full name on motion layer with z
-    [30] = ACTION_MACRO(FULL_NAME),
+    [31] = ACTION_MACRO(FULL_NAME),
 };
 
 /******************************************************************************
